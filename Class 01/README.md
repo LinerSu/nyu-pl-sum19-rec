@@ -25,4 +25,4 @@ Please find [this page](https://ccm.net/faq/30635-how-to-install-flex-and-bison-
 ## Bison Parser
 
 ## Notes
-If you plan to learn more, please see [this munual](http://web.iitd.ac.in/~sumeet/flex__bison.pdf).
+If you plan to learn more, please see [this manual](http://web.iitd.ac.in/~sumeet/flex__bison.pdf).
