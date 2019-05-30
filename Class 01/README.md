@@ -27,6 +27,7 @@ Please find [this page](https://ccm.net/faq/30635-how-to-install-flex-and-bison-
 
 ## Exercise Questions
 **Question 1:**
+
 Design a regular expression for a language that accept all strings of lowercase letters containing the five english vowels (a,e,i,o,u) in order and each occurring exactly at once. For instance, a valid string is:
 ```
 h a b e c i k o u m
@@ -38,6 +39,7 @@ s a a a a b e
 ###### Answer:
 
 **Question 2:**
+
 Design a context-free grammar that accept this language:
 
 ![Q2](img/q2.png?raw=true "Optional Title")
