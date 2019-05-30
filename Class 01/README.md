@@ -16,7 +16,7 @@ brew install bison # to install bison
 
 Please find [this page](https://samskalicky.wordpress.com/2014/01/25/tutorial-setting-up-flex-bison-on-windows/) for the tutorial.
 
-**Linux:**
+**Ubuntu Linux:**
 
 Please find [this page](https://ccm.net/faq/30635-how-to-install-flex-and-bison-under-ubuntu) for the tutorial.
 
