@@ -107,13 +107,13 @@ What does this program print if we make the following assumptions about the para
 
 ### Exercise
 ```Scala
-def f (i: Int, g: () => Unit) = {
-  def h() = println(i)
+def f (i: Int, g: () => Unit):Unit = {
+  def h():Unit = println(i)
   if (i > 1) g()
   else f(i+1, h)
 }
 
-def c() = ()
+def c():Unit = ()
 
 f(1, c)
 ```
