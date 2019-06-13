@@ -5,7 +5,7 @@
 2. Frame Pointer: points into the activation record of a subroutine so that any objects allocated on the stack can be referenced with a static offset from the frame pointer.
 
 ## Calling Convention
-1. Caller: function or procedure who makes the function call (call callee)
+1. Caller: function or procedure who makes the function call
 2. Callee: function or procedure has been called
 ### Calling sequence
 Def. the conventional sequence of instructions that call and return from a procedure.
