@@ -3,6 +3,7 @@
 ## Stack Pointer & Frame Pointer
 1. Stack Pointer: contains the address of either the last used location or the next unused location on the stack.
 2. Frame Pointer: points into the activation record of a subroutine so that any objects allocated on the stack can be referenced with a static offset from the frame pointer.
+3. Stack and heap structure in the memeory:
 
 ## Calling Convention
 1. Caller: function or procedure who makes the function call
@@ -14,14 +15,29 @@ a. Prologue: management code executed at the beginning of a subroutine call.
 - Pass parameters, save return address, update static chain, change PC counter, move SP, save register values, move FP, initialize objects...
 
 b. Epilogue: management code executed at the end of a subroutine call.
-- Finalize objects, pass return value back to caller, restore
+- Finalize objects, pass return value back to caller, restore...
 
 **Q: Are there advantages to having the caller or callee perform various tasks?**
-<details><summary>Answer</summary>
-     <p>
-     If possible, have the callee perform tasks: task code needs to occur only once, rather than at every call site
-     </p>
-</details>
+If possible, have the callee perform tasks: task code needs to occur only once, rather than at every call site.
+
+## Activation trees and execution procedure
+Consider this code example:
+```c
+int fib (int n) { 
+     int t, s;
+     if (-1 < n && n < 2) return n; 
+     s = fib(n−1);
+     t = fib(n−2);
+     return s+t;
+}
+```
+Q: If you plan to call this function as `fib(5)`, what is the real sequence of steps on the stack during the execution?
+Using the activation trees to represent the steps.
+
+### Activation trees
+Def. A tree structure to represent the sequence of steps. Execution corresponds to depth-first traversal of the activation tree.
+Consider the previous function call, it will have this activation tree:
+
 
 # Parameter passing modes
 
@@ -47,18 +63,21 @@ func(a+b, atoi("10")); // a+b and atoi("10") are acutual parameters
 2. Call by reference
   - Formal is bound to location of actual, forming an alias
   - Assignment to formal, if allowed, also affects actual
+  - Only works if actual evaluates to a l-value (l-value: value refers to memory location)
 
 ### Lazy Evaluation
 1. Call by name
   - Formal is bound to *expression* of actual
   - Expression is evaluated **each time** formal is read when executing
-  - No assignment to formal
+  - Algol 60 allows assignment to formal if actual is a variable (actual should be a l-value)
+  - not common for doing an assginment in recent languages, usually cannot assign to formal
 
 2. Call by need
   - Formal is bound to *expression* of actual
   - Expression is evaluated **only the first time** its value is needed
   - Subsequent reads from the formal will use the value computed earlier
-  - No assignment to formal
+  - Algol 60 allows assignment to formal if actual is a variable (actual should be a l-value)
+  - not common for doing an assginment in recent languages, usually cannot assign to formal
   
 ###  How to calculate the values of several variables in the parameter passing modes? 
 
@@ -105,6 +124,9 @@ What does this program print if we make the following assumptions about the para
 7
 4
 ```
+
+### Notes
+If you plan to see more examples, please check [this page](https://courses.cs.washington.edu/courses/cse341/03wi/imperative/parameters.html).
 
 ## Function passsing
 
