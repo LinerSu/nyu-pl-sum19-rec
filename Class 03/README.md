@@ -4,6 +4,7 @@
 1. Stack Pointer: contains the address of either the last used location or the next unused location on the stack.
 2. Frame Pointer: points into the activation record of a subroutine so that any objects allocated on the stack can be referenced with a static offset from the frame pointer.
 3. Stack and heap structure in the memeory:
+![Alt text](img/123.png){:height="50%" width="50%"}
 
 ## Calling Convention
 1. Caller: function or procedure who makes the function call
@@ -37,7 +38,7 @@ Using the activation trees to represent the steps.
 ### Activation trees
 Def. A tree structure to represent the sequence of steps. Execution corresponds to depth-first traversal of the activation tree.
 Consider the previous function call, it will have this activation tree:
-
+![Alt text](img/tree.png){:height="50%" width="50%"}
 
 # Parameter passing modes
 
