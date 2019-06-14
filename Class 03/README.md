@@ -59,6 +59,15 @@ func(a+b, atoi("10")); // a+b and atoi("10") are acutual parameters
   - Expression is evaluated **only the first time** its value is needed
   - Subsequent reads from the formal will use the value computed earlier
   - No assignment to formal
+  
+###  How to calculate the values of several variables in the parameter passing modes? 
+
+1. Call by value --- values are copied by actual parameters when they pass.
+
+2. Call by reference --- formal parameter is the actual one (change formal also change actual).
+
+3. Call by name --- formal parameter is bound by expression (execute formal by executing the expression), the parameter is evaluated until it will be used.
+
 ### Sample Question
 Consider this following code:
 ```scala
@@ -74,28 +83,28 @@ println(z)
 What does this program print if we make the following assumptions about the parameter passing modes for the parameters `x` and `y` of `f`:
 
 1. `x` and `y` using call-by-value parameter
-<details><summary>Answer</summary>
-    <p> 
-     5 2
-</p></details>
+```
+5
+2
+```
 
 2. `x` is call-by-reference and `y` is call-by-value
-<details><summary>Answer</summary>
-    <p> 
-     5 3
-</p></details>
+```
+5
+3
+```
 
 3. `x` is call-by-value and `y` is call-by-name
-<details><summary>Answer</summary>
-    <p> 
-     6 3
-</p></details>
+```
+6
+3
+```
 
 4. `x` is call-by-reference and `y` is call-by-name
-<details><summary>Answer</summary>
-    <p> 
-     7 4
-</p></details>
+```
+7
+4
+```
 
 ## Function passsing
 
@@ -103,6 +112,9 @@ What does this program print if we make the following assumptions about the para
 
 1. Deep binding: When a subrountine is declared, it will create a closure that storing function information and environment. When it is called (used), the referencing environment from when the closure of that function created is restored.
   - Closure: a record stroing function together with an environment.
+  - Environment: a mapping associating each free variable of the function (variables that are used locally, but defined in an enclosing scope) with the value or reference to which the name was bound when the closure was created.
+  - Free variable: variable is not defined by the current function.
+
 2. Shallow binding: When a subroutine is called, it uses the current referencing environment at the call site.
 
 ### Exercise
@@ -120,12 +132,10 @@ f(1, c)
 What does this program print if we make the following assumptions about the parameter passing:
 
 1. This code is running under static scoping and deep binding.
-<details><summary>Answer</summary>
-    <p> 
-     1
-</p></details>
+```
+1
+```
 2. This code is running under dynamic scoping and shallow binding.
-<details><summary>Answer</summary>
-    <p> 
-     2
-</p></details>
+```
+2
+```
