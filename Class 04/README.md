@@ -48,7 +48,8 @@ Think about this question as how to determine variable scoping (static).
 Def. Alpha-renaming is a way to change a bound variable names.
 1. Renaming rule
     - Only bound variable can be renamed, not free variable.
-    - Renaming consistency: if we rename `x` in a term `λ x. t`, all occurrences of `x` in `t` must be replaced by `y`. (`λ x. t = λ y. t[x/y]`)
+    - Renaming consistency: if we rename `x` in a term `λ x. t`, all occurrences of `x` in `t` must be replaced by `y`. 
+        - `λ x. t = λ y. t[x/y]`
     - Renaming capture-avoiding: if we rename `x` in a term `λ x. t`, for every subterm `t'` inside `t`, if `t'` has a variable `x` that **is bound to** by current `λ x. t`, then `y` must be free in term `t'` by the renaming. Otherwise, you should do renaming for `y` firstly to free `y`.
 2. Example
     - `λ x . (λ x. (λ y. x) y) z x (rename outer x to w) <=> λ w . (λ x. (λ y. x) y) z w`
@@ -60,8 +61,10 @@ Def. evaluating lambda expression
     - `t[s/x]`: for the term `t`, substitute all occurrences of `x` that are bounded by current `λ x. t` to the term `s`.
     - Normal form (reduction's result): an expression cannot be reducted any further.
 2. Evaluation strategy
-    - Normal order: reduce the outermost “redex” first. (`(λ x. (λ y. x y)) ((λ x. x) z) = λ y. ((λ x. x) z) y = λ y. z y`)
-    - Applicative order: arguments to a function application are evaluated first, from left to right before the function application itself is evaluated. (`(λ x. (λ y. x y)) ((λ x. x) z) = (λ x. (λ y. x y)) z = λ y. z y`)
+    - Normal order: reduce the outermost “redex” first. 
+        - `(λ x. (λ y. x y)) ((λ x. x) z) = λ y. ((λ x. x) z) y = λ y. z y`
+    - Applicative order: arguments to a function application are evaluated first, from left to right before the function application itself is evaluated.
+        - `(λ x. (λ y. x y)) ((λ x. x) z) = (λ x. (λ y. x y)) z = λ y. z y`
     - You can combine these two order strategies during reduction, but the only way to get a terminating reduction is using normal order if the terminating reduction exists.
 **Question: How to do the β reduction by giving a lambda expression?**
 Think about what you need to check before reduction, how to do reduction, by which order, etc.
