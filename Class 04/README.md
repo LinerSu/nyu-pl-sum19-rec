@@ -109,7 +109,7 @@ The rules for evaluating Scheme programs:
 
 ### List manipulation
 The inbuilt list data type provides one constant and three primitive operations:
-- `()` or `nil`: the empty list
+- `'()` or `nil`: the empty list
 - `cons`: prepend an element to a list
 - `car`: get head of the list
 - `cdr`: get tail of the list
