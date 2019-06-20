@@ -121,7 +121,18 @@ Scheme supports anonymous functions similar to lambda terms in the lambda calcul
 ```
 
 ### Contol constructs
-
+Conditional expressions take the form
+```scheme
+(if condition expr1 expr2)
+```
+or more general form:
+```scheme
+(cond
+  (pred1 expr1)
+  (pred2 expr2)
+  ...
+  (else exprn))
+```
 ### Binding constructs
 There are three binding constructs:
 - `let`: The `let` form evaluates all the `inits` in the current environment; it will introduces the variables `x1` to `xn` simultaneously. The scope of these bindings is `body`.
