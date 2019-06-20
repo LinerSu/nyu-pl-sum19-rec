@@ -70,6 +70,16 @@ Def. evaluating lambda expression
 **Question: How to do the β reduction by giving a lambda expression?**
 
 Think about what you need to check before reduction, how to do reduction, by which order, etc.
+### Exercise
+Consider the church encoding, we know that:
+```
+iszero = (λ n. n (λ x. false) true)
+0 = (λ s z. z)
+1 = (λ s z. s z)
+true = (λ x y. x)
+false = (λ x y. y)
+```
+**Question: How do we compute `iszero 1` to get `false` via beta reduction?**
 
 # Scheme Programming
 
