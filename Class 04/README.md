@@ -34,8 +34,10 @@ Think lambda calculus as function:
 <p align="center">
 <img src="img/exp_bound.png" height="50%" width="50%">
 </p>
+
 **Question: How to determine the free variable?**
-Think about this question like how to determine variable scoping (static). 
+
+Think about this question as how to determine variable scoping (static). 
 
 ## Alpha renaming (α convension)
 Def.
