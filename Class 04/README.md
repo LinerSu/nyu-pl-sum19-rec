@@ -68,6 +68,7 @@ Def. evaluating lambda expression
     - You can combine these two order strategies during reduction, but the only way to get a terminating reduction is using normal order if the terminating reduction exists.
 
 **Question: How to do the β reduction by giving a lambda expression?**
+
 Think about what you need to check before reduction, how to do reduction, by which order, etc.
 
 # Scheme Programming
