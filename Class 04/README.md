@@ -54,7 +54,7 @@ Def. Alpha-renaming is a way to change a bound variable names.
     - `λ x . (λ x. (λ y. x) y) z x (rename outer x to w) <=> λ w . (λ x. (λ y. x) y) z w`
     - `λ x . (λ y. y) x (rename x to y) <=> λ y . (λ z. z) y`
 
-## β reduction
+## Evaluation via reduction (β reduction)
 Def. evaluating lambda expression
 1. Reduction rule: `(λ x. t) s = t[s/x]`
     - `t[s/x]`: for the term `t`, substitute all occurrences of `x` that are bounded by current `λ x. t` to the term `s`.
