@@ -73,3 +73,88 @@ Think about what you need to check before reduction, how to do reduction, by whi
 
 # Scheme Programming
 
+## Syntax
+For scheme, an expression is either an atom or a list. All expressions use prefix notation.
+1. Atom: constants (numbers and Booleans) or symbols (variables and inbuilt functions)
+2. List: be nested to form trees.
+```scheme
+; Constants
+1 ; integer
+#t; boolean
+
+; Symbols
+(define x 1)
+> x
+1
+```
+## Semantics
+The rules for evaluating Scheme programs:
+- a constant evaluates to itself
+- a symbol evaluates to its current binding
+- a list must be:
+    - a form (e.g. `if`, `lambda`), or
+    - a function application:
+        - the first element of the list must evaluate to a function
+        - the remaining elements are the actual parameters
+
+### List manipulation
+The inbuilt list data type provides one constant and three primitive operations:
+    - `()` or `nil`: the empty list
+    - `cons`: prepend an element to a list
+    - `car`: get head of the list
+    - `cdr`: get tail of the list
+```scheme
+> ( car '( this is a list of symbols ))
+this
+> ( cdr '( this is a list of symbols ))
+(is a list of symbols)
+> (car '())
+; car: contract violation
+;   expected: pair?
+;   given: '()
+```
+
+### Lambda expression
+Scheme supports anonymous functions similar to lambda terms in the lambda calculus.
+```scheme
+(lambda (x y) (* x y))
+```
+
+### Contol constructs
+
+### Binding constructs
+There are three binding constructs:
+- `let`: The `let` form evaluates all the `inits` in the current environment; it will introduces the variables `x1` to `xn` simultaneously. The scope of these bindings is `body`.
+```scheme
+(let
+  ((x1 init1) (x2 init2) ... (xn initn))
+  body)
+```
+Think about `let` as a block like this:
+``` scala
+{
+  val x1, ..., xn = init1, ..., initn
+  body
+}
+```
+- `let*`: The `let *` form evaluates each binding from left to right, and each binding is done in an environment in which the previous bindings are visible.
+```scheme
+(let*
+  ((x1 init1) (x2 init2) ... (xn initn))
+  body)
+```
+Think about `let*` as a block like this:
+``` scala
+{
+  val x1 = init1
+  ...
+  val xn = initn
+  body
+}
+```
+- `letrec`: the letrec form can be used to define (mutually) recursive functions. 
+```scheme
+(letrec
+  ((x1 init1) (x2 init2) ... (xn initn))
+  body)
+```
