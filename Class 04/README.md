@@ -32,7 +32,7 @@ Think lambda calculus as function:
   - Free variable: a variable is not bounded by a lambda abstraction.
 3. Example:
 <p align="center">
-<img src="img/bound.png" height="50%" width="50%">
+<img src="img/bound.png" height="70%" width="70%">
 </p>
 
 **Question: How to determine the free variable?**
@@ -56,8 +56,15 @@ Def. Alpha-renaming is a way to change a bound variable names.
 
 ## β reduction
 Def. evaluating lambda expression
-1. Reduction rule
+1. Reduction rule: `(λ x. t) s = t[s/x]`
+    - `t[s/x]`: for the term `t`, substitute all occurrences of `x` that are bounded by current `λ x. t` to the term `s`.
+    - Normal form (reduction's result): an expression cannot be reducted any further.
 2. Evaluation strategy
+    - Normal order: reduce the outermost “redex” first. (`(λ x. (λ y. x y)) ((λ x. x) z) = λ y. ((λ x. x) z) y = λ y. z y`)
+    - Applicative order: arguments to a function application are evaluated first, from left to right before the function application itself is evaluated. (`(λ x. (λ y. x y)) ((λ x. x) z) = (λ x. (λ y. x y)) z = λ y. z y`)
+    - You can combine these two order strategies during reduction, but the only way to get a terminating reduction is using normal order if the terminating reduction exists.
+**Question: How to do the β reduction by giving a lambda expression?**
+Think about what you need to check before reduction, how to do reduction, by which order, etc.
 
 # Scheme Programming
-vv
+
