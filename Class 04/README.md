@@ -32,7 +32,7 @@ Think lambda calculus as function:
   - Free variable: a variable is not bounded by a lambda abstraction.
 3. Example:
 <p align="center">
-<img src="img/exp_bound.png" height="50%" width="50%">
+<img src="img/bound.png" height="50%" width="50%">
 </p>
 
 **Question: How to determine the free variable?**
