@@ -47,7 +47,7 @@ will have this ast:
 ```
     app
    /   \
-  λ x   y
+  λ x  *y*
    |
   λ y
    |
@@ -55,10 +55,11 @@ will have this ast:
  /   \
 x    app
     /   \
-   z     y
+  *z*     y
 ```
 - All the using occurrences of variables in the term are the ones that label the leaves of the tree (`x`, `z`, `y`, `y`)
 - To determine binding, all leaf are variables. Trace back to its ancestors, the first λ that binds the variable starting from the leaf is the one that the leaf refers to.
+- As you can see, when you traverse for each variable, two variables are free.
 
 Abstract syntax tree is very useful when you find a set of free variables inside a complicate lambda expression:
 <p align="center">
