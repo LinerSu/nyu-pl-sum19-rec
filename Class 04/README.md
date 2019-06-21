@@ -3,7 +3,8 @@ Def. a mathematical logic for expressing computation based on fucntion abstracti
 Formula. 
 Think lambda calculus as function:
 ```javascript
-λ x. t => def f (x) { t }
+λ x. t => def f (x) { t } // function def
+(λ x. t) s => f (s) // function call
 ```
 ## Syntax for a term
 1. Variable --- `x`
