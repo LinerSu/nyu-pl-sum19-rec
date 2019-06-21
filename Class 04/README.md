@@ -252,7 +252,7 @@ For instance:
 - Intuition: Your implementation should iterate the list `ls` and recursively call function `foldl` to fold the list into a single value as `f (car ls) z` as `z` for next iteration.
 Here is an example that how `foldl` works:
 <p align="center">
-<img src="img/foldl.png" height="70%" width="70%">
+<img src="img/foldl.png" height="60%" width="60%">
 </p>
 
 - Sample code:
@@ -271,7 +271,7 @@ You can also use `foldl` for defining `rev`:
 **Hint for foldr:**
 For `foldr`, it is very similar like `foldl` except you iterate the list from end to the begin. Here is an example that how `foldr` works:
 <p align="center">
-<img src="img/foldr.png" height="70%" width="70%">
+<img src="img/foldr.png" height="60%" width="60%">
 </p>
 
 4. `unzip`: define a function `unzip` by giving an input list that each element in this list is a pair. `unzip` will output a pair of two lists that first list contains only the first element of each pair in the input list, and second list contains only the second element of each pair in the input list. For instance:
