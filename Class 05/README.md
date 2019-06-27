@@ -216,8 +216,25 @@ You can also use `foldl` for defining `rev`:
 
 2. `pack`: define a function `pack` that packs consecutive duplicates of list elements into sublists.
 
-For instance:
+For example:
 ```scheme
 > (pack '(a a a a b c c a a d e e e e)) 
 ((a a a a) (b) (c c) (a a) (d) (e e e e)) 
+```
+
+- Sample code:
+```scheme
+; pack
+(define (pack ls)
+  (cond
+    ((null? ls) '())
+    (else (reverse (foldl (lambda (x z)
+      (cond
+          ((null? z) (cons (cons x '()) z))
+          ((= x (caar z)) (cons (cons x (car z)) (cdr z)))
+          (else (cons (cons x '()) z))
+      )
+    ) '() ls)))
+  )
+)
 ```
