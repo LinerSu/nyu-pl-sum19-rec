@@ -143,7 +143,66 @@ int main()
 </details>
 
 ## Parameter Passing Modes
+1. Strict evaluation: call-by-value, call-by-name
+2. Lazy evaluation: call-by-name, call-by-need
 
+### Exercise
+Consider this following code:
+```scala
+def f(x: Int, y: Int) {
+  x = y + 1
+  println(x + y)
+}
+
+var z = 1
+f(z, {z = z + 1; z})
+println(z)
+```
+What does this program print if we make the following assumptions about the parameter passing modes for the parameters `x` and `y` of `f`:
+
+1. `x` and `y` using call-by-value parameter
+<details><summary>Solution</summary>
+    <p>
+
+```
+2 6 4
+0 1 4
+```
+   </p>
+</details>
+
+2. `x` is call-by-reference and `y` is call-by-value
+<details><summary>Solution</summary>
+    <p>
+
+```
+2 6 4
+0 1 4
+```
+   </p>
+</details>
+
+3. `x` is call-by-value and `y` is call-by-name
+<details><summary>Solution</summary>
+    <p>
+
+```
+2 6 4
+0 1 4
+```
+   </p>
+</details>
+
+4. `x` is call-by-reference and `y` is call-by-name
+<details><summary>Solution</summary>
+    <p>
+
+```
+2 6 4
+0 1 4
+```
+   </p>
+</details>
 
 ## Lambda Calculus
 
@@ -222,7 +281,9 @@ For example:
 ((a a a a) (b) (c c) (a a) (d) (e e e e)) 
 ```
 
-- Sample code:
+<details><summary>Sample code</summary>
+    <p>
+
 ```scheme
 ; pack
 (define (pack ls)
@@ -238,3 +299,30 @@ For example:
   )
 )
 ```
+   </p>
+</details>
+
+3. `split`: define a function `split` that splits an input list into two parts by given a length of the first part.
+
+For instance:
+```scheme
+> (split '(a b c d e f g) 3)
+((a b c)(d e f g))
+```
+
+<details><summary>Sample code</summary>
+    <p>
+
+```scheme
+; split
+(define (split ls n)
+  (letrec ((split-rec (lambda (ls n res)
+      (cond
+        ((= n 0) (append res (cons ls '())))
+        (else (split-rec (cdr ls) (- n 1) (cons (append (car res) (list (car ls))) (cdr res)))))
+  )))
+  (split-rec ls n '(())))
+)
+```
+   </p>
+</details>
