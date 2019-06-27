@@ -186,6 +186,7 @@ How do we compute `pred 1` to get `0` via beta reduction?
 
 ### Exercise
 1. `foldl`: define a function `foldl` that traverse the list from the begin to the end and recursively fold the list into a single value. So, this function will take a function `f` as parameter, a single value `z` and a list `ls` for traversal. Moreover, for fuction `f`, it will takes two value, the first is an element in the list `ls` and second is the single value `z`.
+
 For instance:
 ```scheme
 > (foldl + 0 '(1 2 3 4)) ; sum of the list
@@ -214,6 +215,7 @@ You can also use `foldl` for defining `rev`:
 ```
 
 2. `pack`: define a function `pack` that packs consecutive duplicates of list elements into sublists.
+
 For instance:
 ```scheme
 > (pack '(a a a a b c c a a d e e e e)) 
