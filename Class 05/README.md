@@ -86,9 +86,61 @@ S ->
 - Here is the [website](https://web.stanford.edu/class/archive/cs/cs103/cs103.1156/tools/cfg/) for testing the correctness of CFG.
 
 ## Static vs. Dynamic Scoping
-
+1. Static scoping: binding of a name is determined by rules that refer only to the program text. (i.e. its syntactic structure)
+2. Dynamic scoping: binding of a name is given by the most recent declaration encountered during run-time.
 
 ### Exercise
+Consider this code snippet:
+```c
+int a = 0, b = 0, c = 0;
+void q();
+
+void p() {
+    int a = 1;
+    b = 1;
+    c = a + b;
+    a = c + b;
+    q();
+}
+void print() { printf("%d %d %d\n", a, b, c); }
+
+void q() {
+    int b = 2;
+    a = 2;
+    c = a + b;
+    b = c + a;
+    print();
+}
+
+int main()
+{
+    int c = 3; 
+    p();
+    print();
+    return 0;
+}
+```
+1. In c programming, we know that c is using static scoping. What does this program print when it runs?
+<details><summary>Solution</summary>
+    <p>
+
+```
+2 1 4
+2 1 4
+```
+   </p>
+</details>
+
+2. Now assume the program is running under dynamic scoping. What does this program print?
+<details><summary>Solution</summary>
+    <p>
+
+```
+2 6 4
+0 1 4
+```
+   </p>
+</details>
 
 ## Parameter Passing Modes
 
