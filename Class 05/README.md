@@ -148,7 +148,22 @@ int main()
 ## Lambda Calculus
 
 ### Exercise
-Consider the church encoding, we know that:
+1. Determine the set of free variables inside this lambda expression:
+```
+(λ x. (λ y. x) y (λ x. x)) (λ z. z) x
+```
+Moreover, show an alpha-renaming of the term such that no variable is bound more than once.
+<details><summary>Solution</summary>
+    <p>
+
+```
+free variable: y, x
+after renaming: (λ x1. (λ y. x1) y (λ x2. x2)) (λ z. z) x
+```
+   </p>
+</details>
+
+2. Consider the church encoding, we know that:
 ```
 true = (λ x y. x)
 false = (λ x y. y)
@@ -160,7 +175,7 @@ fst = (λ p. p true)
 snd = (λ p. p false)
 pred = λ n. snd (n (λ p. pair (succ (fst p)) (fst p)) (pair 0 0))
 ```
-**Question: How do we compute `pred 1` to get `0` via beta reduction?**
+How do we compute `pred 1` to get `0` via beta reduction?
 ```
     pred 1
 => (λ n. snd (n (λ p. pair (succ (fst p)) (fst p)) (pair 0 0))) 1        ; by def of pred
@@ -197,3 +212,5 @@ You can also use `foldl` for defining `rev`:
 ```scheme
 (define (rev ls) (foldl cons '() ls))
 ```
+
+2. `pack`: 
