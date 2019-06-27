@@ -1,33 +1,61 @@
 # Midterm Preparation
 
 ## Regular Expression
+- Syntax
+    - Basic:
+        - `ε`: represents an empty string, `ε` matches no characters string (empty string).
+        - `a`: a single character, `a` matches a string containing only the character a.
+    - Concatenation (sequencing): `RS` denotes the set of strings that can be obtained by concatenating a string in `R` and a string in `S`.
+        - `RS = { αβ | α ∈ R, β ∈ S }`
+    - Alternation: a vertical bar `|` separates alternatives.
+        - `a|b` matches `a` or `b`.
+    - Repetition:
+        - `*`(Kleene star): the set of strings which are concatenations of zero or more occurrences of the preceding element.
+            - `a*b` matches `b`, `ab`, `aab` and so on.
+        - `+`: the set of strings which are concatenations of one or more occurrences of the preceding element.
+            - `a+b` matches `ab`, `aab`, `aaab` and so on.
+            - `a+` = `aa*`
 
 ### Exercise
+1. Write an regular expression that matches the positive float point number with the following restriction:
+```
+Match:
+1.2
+0.35
+0.007
+0.0
+Not match:
++1.2
+-3.4
+01.23
+3
+0
+```
+**Solution:**
+<details><summary>Solution</summary>
+     <p>
+     
+     ``` 
+     ([1-9][0-9]*|0)\.[0-9]+
+     ```
+     </p></details>
 
 ## Context Free Grammar
-
+- Terminals: the set of the alphabet of the language
+- Nonterminals: the set of variables, each variable represents a different type of phrase or clause in the sentence
+- Productions: rules for replacing a single non-terminal with a string of terminals and non-terminals
+- Starting symbol: a nonterminal, used to represent the whole sentence (or program)
 ### Exercise
 
 ## Static vs. Dynamic Scoping
 
-<p align="center">
-<img src="img/bound.png" height="70%" width="70%">
-</p>
+
 ### Exercise
 
 ## Parameter Passing Modes
 
 
-## Memory Management
-1. Reduction rule: `(λ x. t) s = t[s/x]`
-    - `t[s/x]`: for the term `t`, substitute all occurrences of `x` that are bounded by current `λ x. t` to the term `s`.
-    - Normal form (reduction's result): an expression cannot be reducted any further.
-2. Evaluation strategy
-    - Normal order: reduce the outermost “redex” first. 
-        - `(λ x. (λ y. x y)) ((λ x. x) z) = λ y. ((λ x. x) z) y = λ y. z y`
-    - Applicative order: arguments to a function application are evaluated first, from left to right before the function application itself is evaluated.
-        - `(λ x. (λ y. x y)) ((λ x. x) z) = (λ x. (λ y. x y)) z = λ y. z y`
-    - You can combine these two order strategies during reduction, but the only way to get a terminating reduction is using normal order if the terminating reduction exists.
+## Lambda Calculus
 
 ### Exercise
 Consider the church encoding, we know that:
@@ -50,6 +78,8 @@ pred = λ n. snd (n (λ p. pair (succ (fst p)) (fst p)) (pair 0 0))
 ```
 
 ## Scheme Programming
+
+### Exercise
 2. `foldl`: define a function `foldl` that traverse the list from the begin to the end and recursively fold the list into a single value. So, this function will take a function `f` as parameter, a single value `z` and a list `ls` for traversal. Moreover, for fuction `f`, it will takes two value, the first is an element in the list `ls` and second is the single value `z`.
 For instance:
 ```scheme
@@ -78,4 +108,8 @@ You can also use `foldl` for defining `rev`:
 (define (rev ls) (foldl cons '() ls))
 ```
 
-
+```
+<p align="center">
+<img src="img/bound.png" height="70%" width="70%">
+</p>
+```
