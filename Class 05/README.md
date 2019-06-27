@@ -60,7 +60,9 @@ aaaaabbb
     <p>
 
 ```
-([1-9][0-9]*|0)\.[0-9]+
+S -> aA
+A -> aA | B
+B -> aBb | ε
 ```
    </p>
 </details>
@@ -78,7 +80,10 @@ baaaa
     <p>
 
 ```
-S -> 
+S -> aA | MS | SMA
+A -> aA | ε
+M -> MM | bMa | aMb | ε
+
 ```
    </p>
 </details>
@@ -148,15 +153,18 @@ int main()
 
 ### Exercise
 Consider this following code:
-```scala
-def f(x: Int, y: Int) {
-  x = y + 1
-  println(x + y)
+```c++
+int z = 1;
+
+/*Note: evaluations for addition and printf are both left_to_right*/
+
+void f(int x, int y) { // suppose formal could be assigned
+    x = y + z;
+    printf("%d %d\n", x, y);
 }
 
-var z = 1
-f(z, {z = z + 1; z})
-println(z)
+f(z, {int x = z; z = x + 1; z});
+printf("%d\n", z);
 ```
 What does this program print if we make the following assumptions about the parameter passing modes for the parameters `x` and `y` of `f`:
 
@@ -165,8 +173,8 @@ What does this program print if we make the following assumptions about the para
     <p>
 
 ```
-2 6 4
-0 1 4
+4 2
+2
 ```
    </p>
 </details>
@@ -176,8 +184,8 @@ What does this program print if we make the following assumptions about the para
     <p>
 
 ```
-2 6 4
-0 1 4
+4 2
+4
 ```
    </p>
 </details>
@@ -187,8 +195,8 @@ What does this program print if we make the following assumptions about the para
     <p>
 
 ```
-2 6 4
-0 1 4
+4 3
+3
 ```
    </p>
 </details>
@@ -198,8 +206,8 @@ What does this program print if we make the following assumptions about the para
     <p>
 
 ```
-2 6 4
-0 1 4
+4 5
+5
 ```
    </p>
 </details>
