@@ -213,4 +213,9 @@ You can also use `foldl` for defining `rev`:
 (define (rev ls) (foldl cons '() ls))
 ```
 
-2. `pack`: 
+2. `pack`: define a function `pack` that packs consecutive duplicates of list elements into sublists.
+For instance:
+```scheme
+> (pack '(a a a a b c c a a d e e e e)) 
+((a a a a) (b) (c c) (a a) (d) (e e e e)) 
+```
