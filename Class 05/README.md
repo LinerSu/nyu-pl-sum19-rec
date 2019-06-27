@@ -32,13 +32,14 @@ Not match:
 0
 ```
 
-   <details><summary>Solution</summary>
-     <p>
-     
-     ``` 
-     6
-     ```
-     </p></details>
+<details><summary>Solution</summary>
+    <p>
+
+```
+([1-9][0-9]*|0)\.[0-9]+
+```
+   </p>
+</details>
 
 ## Context Free Grammar
 - Terminals: the set of the alphabet of the language
@@ -46,6 +47,43 @@ Not match:
 - Productions: rules for replacing a single non-terminal with a string of terminals and non-terminals
 - Starting symbol: a nonterminal, used to represent the whole sentence (or program)
 ### Exercise
+Provide a context free grammar over the alphabet {`a`,`b`} such as:
+1. `a` followed by `b` and the number of `a`'s is more than number of `b`'s:
+```
+a
+aab
+aaab
+aaaaabbb
+...
+```
+<details><summary>Solution</summary>
+    <p>
+
+```
+([1-9][0-9]*|0)\.[0-9]+
+```
+   </p>
+</details>
+
+2. Challenge yourself to consider all strings with more a’s than b’s:
+```
+a
+bbabaaa
+ababaab
+aba
+baaaa
+...
+```
+<details><summary>Solution</summary>
+    <p>
+
+```
+S -> 
+```
+   </p>
+</details>
+
+- Here is the [website](https://web.stanford.edu/class/archive/cs/cs103/cs103.1156/tools/cfg/) for testing the correctness of CFG.
 
 ## Static vs. Dynamic Scoping
 
@@ -80,7 +118,7 @@ pred = λ n. snd (n (λ p. pair (succ (fst p)) (fst p)) (pair 0 0))
 ## Scheme Programming
 
 ### Exercise
-2. `foldl`: define a function `foldl` that traverse the list from the begin to the end and recursively fold the list into a single value. So, this function will take a function `f` as parameter, a single value `z` and a list `ls` for traversal. Moreover, for fuction `f`, it will takes two value, the first is an element in the list `ls` and second is the single value `z`.
+1. `foldl`: define a function `foldl` that traverse the list from the begin to the end and recursively fold the list into a single value. So, this function will take a function `f` as parameter, a single value `z` and a list `ls` for traversal. Moreover, for fuction `f`, it will takes two value, the first is an element in the list `ls` and second is the single value `z`.
 For instance:
 ```scheme
 > (foldl + 0 '(1 2 3 4)) ; sum of the list
@@ -106,10 +144,4 @@ Here is an example that how `foldl` works:
 You can also use `foldl` for defining `rev`:
 ```scheme
 (define (rev ls) (foldl cons '() ls))
-```
-
-```
-<p align="center">
-<img src="img/bound.png" height="70%" width="70%">
-</p>
 ```
