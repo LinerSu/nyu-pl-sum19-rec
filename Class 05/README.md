@@ -31,12 +31,12 @@ Not match:
 3
 0
 ```
-**Solution:**
-<details><summary>Solution</summary>
+
+   <details><summary>Solution</summary>
      <p>
      
      ``` 
-     ([1-9][0-9]*|0)\.[0-9]+
+     6
      ```
      </p></details>
 
