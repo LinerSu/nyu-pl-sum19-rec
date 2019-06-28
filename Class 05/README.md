@@ -372,6 +372,22 @@ For example:
 > (pack '(a a a a b c c a a d e e e e)) 
 ((a a a a) (b) (c c) (a a) (d) (e e e e)) 
 ```
+- Intuition: using foldr will help you simplify the conversion. Basically, foldr will iterate the list from end to begin and use input function `f` by giving two arguments (an element on the list and single value `z`). Thus, you can create an empty list as `z` for calling `foldr`. During `foldr` iterating list, check element in the list and contruct either current element should build a new sublist or append it into the first sublist inside `z`. 
+For example, consider giving `foldr` function a list `'(a a a b b)`:
+```
+      f =>    '((a a a) (b b))
+     / \
+    a   f =>  '((a a) (b b))
+       / \
+      a   f => '((a) (b b))
+         / \
+        a   f => '((b b))
+           / \
+          b   f => '((b))
+             / \
+            b   z = '()
+```
+
 **Solution:**
     <p>
 
