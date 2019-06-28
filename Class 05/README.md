@@ -293,17 +293,21 @@ For example:
     <p>
 
 ```scheme
+; foldr
+(define (foldr f s L)
+(if (null? L) s (f (car L) (foldr f s (cdr L)))))
+
 ; pack
 (define (pack ls)
   (cond
     ((null? ls) '())
-    (else (reverse (foldl (lambda (x z)
+    (else (foldr (lambda (x z)
       (cond
           ((null? z) (cons (cons x '()) z))
           ((= x (caar z)) (cons (cons x (car z)) (cdr z)))
           (else (cons (cons x '()) z))
-      )
-    ) '() ls)))
+      )) '() ls)
+    )
   )
 )
 ```
