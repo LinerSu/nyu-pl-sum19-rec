@@ -123,6 +123,7 @@ int main()
 }
 ```
 1. In c programming, we know that c is using static scoping. What does this program print when it runs?
+
 **Solution:**
     <p>
 
@@ -133,6 +134,7 @@ int main()
    </p>
 
 2. Now assume the program is running under dynamic scoping. What does this program print?
+
 **Solution:**
     <p>
 
@@ -141,15 +143,35 @@ int main()
 0 1 4
 ```
    </p>
+   
+To consider dynamic scoping, you can use **stack frame** to remeber the declaration order during the running time. For instance, here is a simple stack frame when the program called `print()` inside function `q()`:
 
+```
+|                          |
+|==========================|
+| print:                   |
+|==========================|                               
+| q:                       |                               global var
+|  int b = 6               |                              |  a = 0  |
+|==========================|                              |  b = 1  |
+| p:                       |                              |  c = 0  |
+|  int a = 2               |
+|==========================|
+| main:                    |
+|  int c = 4               |
+|==========================|
+| ...                      |
+```
+The variable `a`, `b` and `c` inside `print()` should be bounded the most recent declaration, where referred `a` is bounded by variable `a` inside function `p()`, `b` is bounded by variable `b` inside function `q()`, and `c` is bounded by variable `c` inside function `main()`.
 
 ## Parameter Passing Modes
-1. Strict evaluation: call-by-value, call-by-name
+1. Strict evaluation: call-by-value, call-by-reference
 2. Lazy evaluation: call-by-name, call-by-need
 
 ### Exercise
 Consider this following code:
 ```c++
+/* static scoping */
 int z = 1;
 
 /*Note: evaluations for addition and printf are both left_to_right*/
@@ -159,13 +181,14 @@ void f(int x, int y) { // suppose formal could be assigned
     printf("%d %d\n", x, y);
 }
 
-f(z, {int x = z; z = x + 1; z});
+f(z, {z = z + 1; z}); // {z = z + 1; z} = increments z by 1 and then returns the value z
 printf("%d\n", z);
 ```
 What does this program print if we make the following assumptions about the parameter passing modes for the parameters `x` and `y` of `f`:
 
 1. `x` and `y` using call-by-value parameter
-<details><summary>Solution</summary>
+
+**Solution:**
     <p>
 
 ```
@@ -173,10 +196,22 @@ What does this program print if we make the following assumptions about the para
 2
 ```
    </p>
-</details>
+
+```c++
+int z = 1;
+
+void f(int x, int y) { // x = 1, y = 2, z = 2
+    x = y + z;
+    printf("%d %d\n", x, y);
+}
+
+f(z, {z = z + 1; z}); // {z = z + 1; z} = 2
+printf("%d\n", z);
+```
 
 2. `x` is call-by-reference and `y` is call-by-value
-<details><summary>Solution</summary>
+
+**Solution:**
     <p>
 
 ```
@@ -184,10 +219,22 @@ What does this program print if we make the following assumptions about the para
 4
 ```
    </p>
-</details>
+
+```c++
+int z = 1;
+
+void f(int x, int y) { // x = z = 2, y = 2
+    x = y + z;
+    printf("%d %d\n", x, y);
+}
+
+f(z, {z = z + 1; z}); // {z = z + 1; z} = 2
+printf("%d\n", z);
+```
 
 3. `x` is call-by-value and `y` is call-by-name
-<details><summary>Solution</summary>
+
+**Solution:**
     <p>
 
 ```
@@ -195,10 +242,22 @@ What does this program print if we make the following assumptions about the para
 3
 ```
    </p>
-</details>
+
+```c++
+int z = 1;
+
+void f(int x, int y) { // x = 1, y = {z = z + 1; z}
+    x = y + z; // y = {z = z + 1; z} = 2, z = 2
+    printf("%d %d\n", x, y); // y = {z = z + 1; z} = 3
+}
+
+f(z, {z = z + 1; z});
+printf("%d\n", z);
+```
 
 4. `x` is call-by-reference and `y` is call-by-name
-<details><summary>Solution</summary>
+
+**Solution:**
     <p>
 
 ```
@@ -206,7 +265,18 @@ What does this program print if we make the following assumptions about the para
 5
 ```
    </p>
-</details>
+
+```c++
+int z = 1;
+
+void f(int x, int y) { // x = z, y = {z = z + 1; z}
+    x = y + z; // y = {z = z + 1; z} = 2, z = 2 -> x = z = 4
+    printf("%d %d\n", x, y); // x = z = 4, y = {z = z + 1; z} = 5
+}
+
+f(z, {z = z + 1; z});
+printf("%d\n", z); // z = 5
+```
 
 ## Lambda Calculus
 
@@ -216,7 +286,8 @@ What does this program print if we make the following assumptions about the para
 (λ x. (λ y. x) y (λ x. x)) (λ z. z) x
 ```
 Moreover, show an alpha-renaming of the term such that no variable is bound more than once.
-<details><summary>Solution</summary>
+
+**Solution:**
     <p>
 
 ```
@@ -224,7 +295,6 @@ free variable: y, x
 after renaming: (λ x1. (λ y. x1) y (λ x2. x2)) (λ z. z) x
 ```
    </p>
-</details>
 
 2. Consider the church encoding, we know that:
 ```
@@ -239,10 +309,28 @@ snd = (λ p. p false)
 pred = λ n. snd (n (λ p. pair (succ (fst p)) (fst p)) (pair 0 0))
 ```
 How do we compute `pred 1` to get `0` via beta reduction?
+
+**Solution:**
 ```
     pred 1
-=> (λ n. snd (n (λ p. pair (succ (fst p)) (fst p)) (pair 0 0))) 1        ; by def of pred
-=> ...
+=>  (λ n. snd (n (λ p. pair (succ (fst p)) (fst p)) (pair 0 0))) 1    ; by def of pred
+->  snd (1 (λ p. pair (succ (fst p)) (fst p)) (pair 0 0))             ; do one step for λ n
+=>  snd ((λ s z. s z) (λ p. pair (succ (fst p)) (fst p)) (pair 0 0))  ; by def of 1
+->> snd ((λ p. pair (succ (fst p)) (fst p)) (pair 0 0))               ; do two steps for λ s and λ z
+->  snd (pair (succ (fst (pair 0 0))) (fst (pair 0 0)))               ; do one step for λ p
+=   snd (pair (succ (fst (pair 0 0))) (fst ((λ x y b. b x y) 0 0)))   ; by def of pair
+->> snd (pair (succ (fst (pair 0 0))) (fst (λ b. b 0 0)))             ; do two steps for λ x and λ y
+=   snd (pair (succ (fst (pair 0 0))) ((λ p. p true) (λ b. b 0 0)))   ; by def of fst
+->  snd (pair (succ (fst (pair 0 0))) ((λ b. b 0 0) true))            ; do one step for λ p
+->  snd (pair (succ (fst (pair 0 0))) (true 0 0))                     ; do one step for λ b
+=   snd (pair (succ (fst (pair 0 0))) ((λ x y. x) 0 0))               ; by def of true
+->> snd (pair (succ (fst (pair 0 0))) 0)                              ; do two steps for λ x and λ y
+=   (λ p. p false) (pair (succ (fst (pair 0 0))) 0)                   ; by def of snd
+->  (pair (succ (fst (pair 0 0))) 0) false                            ; do one step for λ p
+=   ((λ x y b. b x y) (succ (fst (pair 0 0))) 0) false                ; by def of pair
+->>>false (succ (fst (pair 0 0))) 0                                   ; do three steps for λ x, λ y and λ b
+=   (λ x y. y) (succ (fst (pair 0 0))) 0                              ; by def of false
+->> 0                                                                 ; do two steps for λ x and λ y
 ```
 
 ## Scheme Programming
@@ -284,8 +372,7 @@ For example:
 > (pack '(a a a a b c c a a d e e e e)) 
 ((a a a a) (b) (c c) (a a) (d) (e e e e)) 
 ```
-
-<details><summary>Sample code</summary>
+**Solution:**
     <p>
 
 ```scheme
@@ -308,7 +395,6 @@ For example:
 )
 ```
    </p>
-</details>
 
 3. `split`: define a function `split` that splits an input list into two parts by given a length of the first part.
 
@@ -318,7 +404,7 @@ For instance:
 ((a b c)(d e f g))
 ```
 
-<details><summary>Sample code</summary>
+**Solution:**
     <p>
 
 ```scheme
@@ -333,4 +419,3 @@ For instance:
 )
 ```
    </p>
-</details>
