@@ -32,14 +32,13 @@ Not match:
 0
 ```
 
-<details><summary>Solution</summary>
+**Solution:**
     <p>
 
 ```
 ([1-9][0-9]*|0)\.[0-9]+
 ```
    </p>
-</details>
 
 ## Context Free Grammar
 - Terminals: the set of the alphabet of the language
@@ -56,7 +55,7 @@ aaab
 aaaaabbb
 ...
 ```
-<details><summary>Solution</summary>
+**Solution:**
     <p>
 
 ```
@@ -65,7 +64,6 @@ A -> aA | B
 B -> aBb | ε
 ```
    </p>
-</details>
 
 2. Challenge yourself to consider all strings with more a’s than b’s:
 ```
@@ -76,7 +74,7 @@ aba
 baaaa
 ...
 ```
-<details><summary>Solution</summary>
+**Solution:**
     <p>
 
 ```
@@ -86,7 +84,6 @@ M -> MM | bMa | aMb | ε
 
 ```
    </p>
-</details>
 
 - Here is the [website](https://web.stanford.edu/class/archive/cs/cs103/cs103.1156/tools/cfg/) for testing the correctness of CFG.
 
@@ -126,7 +123,7 @@ int main()
 }
 ```
 1. In c programming, we know that c is using static scoping. What does this program print when it runs?
-<details><summary>Solution</summary>
+**Solution:**
     <p>
 
 ```
@@ -134,10 +131,9 @@ int main()
 2 1 4
 ```
    </p>
-</details>
 
 2. Now assume the program is running under dynamic scoping. What does this program print?
-<details><summary>Solution</summary>
+**Solution:**
     <p>
 
 ```
@@ -145,7 +141,7 @@ int main()
 0 1 4
 ```
    </p>
-</details>
+
 
 ## Parameter Passing Modes
 1. Strict evaluation: call-by-value, call-by-name
