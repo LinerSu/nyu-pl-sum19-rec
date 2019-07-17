@@ -126,6 +126,7 @@ fun insert t i =
    </p>
 </details>
 2. How to define a List by using ADTs?
+
 **Solution:**
     <p>
 
@@ -141,8 +142,12 @@ fun len Nil = 0
 
 
 ### Notes
-- If you plan to overview the tutorial of SML, please find [this](https://learnxinyminutes.com/docs/standard-ml/) webpage for more details.
+- If you plan to overview the syntax of SML, please find [this](https://learnxinyminutes.com/docs/standard-ml/) webpage for more details.
 - Here is a [tutorial](https://www.classes.cs.uchicago.edu/archive/2007/winter/22610-1/docs/sml-tutorial.pdf) for SML, hope it helps for your review.
 
-# Memory Management and 
+# Memory Management and Garbage Collection
 
+## Memory management
+
+
+## Garbage collection
