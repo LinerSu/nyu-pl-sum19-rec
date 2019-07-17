@@ -34,12 +34,12 @@ case <exp> of
 | · · · · · · · · ·
 | <pattern> => <exp>
 ```
-For example, define a function that calculates the length of the list. We 
+For example, define a function that calculates the length of the list:
 ```sml
 fun len l = 
     case l of
     [] => 0
-    |()
+    |(hd::tl) => 1 + (len tl)
 ```
 - Special case: 
 ```sml
@@ -48,29 +48,45 @@ fun name <pattern> = · · ·
 | · · ·
 ```
 ## Algebraic datatypes
+- Def. a kind of compisite type, where a type formed by combining other types
+    - A type could be constructed by other types
 
+For example, you can define a datatype for a binary tree like this:
+```sml
+datatype 'a btree = 
+      Empty 
+    | Node of 'a * 'a btree * 'a btree
+```
+
+Once you have this datatype, you can make a binary tree as:
+```sml
+val t1 = Node(3,Node(1,Empty,Node(2,Empty,Empty)),Node(4,Empty,Empty))
+val t2 = Node("Btree", Empty, Empty)
+(* However, you can't make a binary tree with arbitrary datatype*)
+(*
+val t3 = Node("Btree", Empty, Node(1,Empty,Empty)) ; overload conflict
+*)
+```
+
+### Option type
 
 ### Exercise
-1. Write an regular expression that matches the positive float point number with the following restriction:
+1. Write a function that insert a new tree Node to a given binary search tree:
 ```
-Match:
-1.2
-0.35
-0.007
-0.0
-Not match:
-+1.2
--3.4
-01.23
-3
-0
+(* function signature *)
+val insert = fn : int btree -> int -> int btree
 ```
 
 **Solution:**
     <p>
 
 ```
-([1-9][0-9]*|0)\.[0-9]+
+fun insert t i =
+   case t of
+    Empty => Node (i,Empty,Empty)
+   | Node (i',l,r) =>
+        if (i < i') then Node (i',insert l i,r)
+        else Node (i',l,insert r i)
 ```
    </p>
 
