@@ -41,7 +41,7 @@ fun len l =
     [] => 0
     |(hd::tl) => 1 + (len tl)
 ```
-If you want to match multiple variables, you can make `<exp1>` as `<arg1>, <arg2>, ..., <argn>`.
+If you want to match multiple variables, you can make `<exp1>` as a tuple --- `<arg1>, <arg2>, ..., <argn>`
 - Special case for only matching the parameters of a function: 
 ```sml
 fun name <pattern> = · · ·
@@ -86,12 +86,20 @@ val t3 = Node("Btree", Empty, Node(1,Empty,Empty)) ; overload conflict
 ### Option type
 One of the predefined ADTs of SML is the `option` type:
 ```sml
-datatype 'a option = None | Some of 'a
+datatype 'a option = NONE | SOME of 'a
+```
+This type is very useful when you try to search or find a value but may not always have a defined return value. For instance, here is how we can implement a function to find the value in a binary search tree, if such a value exists:
+```sml
+fun find t k = case t of
+    Empty => NONE
+  | Node (v, left, right) =>
+    if v = k then SOME v
+    else if v > k then find left k
+    else find right k
 ```
 
-This type is very useful when you try to search or find a value but may not always have a defined return value.
 ### Exercise
-Write a function that insert a new tree Node to a given binary search tree:
+1. Write a function that insert a new tree Node to a given binary search tree:
 ```sml
 (* function signature *)
 val insert = fn : int btree -> int -> int btree
@@ -117,6 +125,20 @@ fun insert t i =
 ```
    </p>
 </details>
+2. How to define a List by using ADTs?
+**Solution:**
+    <p>
+
+```sml
+datatype 'a mylist = 
+    Nil
+  | Cons of 'a * 'a mylist
+
+fun len Nil = 0
+  | len (Cons (hd,tl)) = 1 + len tl
+```
+   </p>
+
 
 ### Notes
 - If you plan to overview the tutorial of SML, please find [this](https://learnxinyminutes.com/docs/standard-ml/) webpage for more details.
