@@ -72,15 +72,15 @@ val t3 = Node("Btree", Empty, Node(1,Empty,Empty)) ; overload conflict
 
 ### Exercise
 1. Write a function that insert a new tree Node to a given binary search tree:
-```
+```sml
 (* function signature *)
 val insert = fn : int btree -> int -> int btree
 ```
 
-**Solution:**
+<details><summary>Solution</summary>
     <p>
 
-```
+```sml
 fun insert t i =
    case t of
     Empty => Node (i,Empty,Empty)
@@ -89,7 +89,7 @@ fun insert t i =
         else Node (i',l,insert r i)
 ```
    </p>
-
+</details>
 
 # Memory Management and 
 
