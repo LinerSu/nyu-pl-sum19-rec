@@ -61,19 +61,19 @@ fun short_circuit_eval false _ = false
 
 For example, you can define a datatype for a binary tree like this:
 ```sml
-datatype tree =
+datatype btree =
     Leaf
   | Node of int * tree * tree
 (* Polymorphic ADTs *)
-datatype 'a btree = (* 'a is a type parameter *)
+datatype 'a bstree = (* 'a is a type parameter *)
       Empty 
-    | Node of 'a * 'a btree * 'a btree
+    | Node of 'a * 'a bstree * 'a bstree
 datatype ('a, 'b) bktree =
       Empty 
     | Node of 'a * 'b * ('a, 'b) bktree * ('a, 'b) bktree
 ```
 
-Once you have this datatype, you can make a binary tree as:
+Once you have this datatype, you can make a binary search tree (BST) as:
 ```sml
 val t1 = Node(3,Node(1,Empty,Node(2,Empty,Empty)),Node(4,Empty,Empty))
 val t2 = Node("Btree", Empty, Empty)
@@ -102,13 +102,13 @@ fun find t k = case t of
 1. Write a function that insert a new tree Node to a binary search tree:
 ```sml
 (* function signature *)
-val insert = fn : int btree -> int -> int btree
+val insert = fn : int btree -> int -> int bstree
 (* For example *)
 - val t1 = Node(1, Empty, Empty);
 - insert t1 3;
-val it = Node (1,Empty,Node (3,Empty,Empty)) : int btree
+val it = Node (1,Empty,Node (3,Empty,Empty)) : int bstree
 - insert t1 0;
-val it = Node (1,Node (0,Empty,Empty),Empty) : int btree
+val it = Node (1,Node (0,Empty,Empty),Empty) : int bstree
 ```
 
 <details><summary>Solution</summary>
@@ -119,7 +119,8 @@ fun insert t i =
    case t of
     Empty => Node (i,Empty,Empty)
    | Node (i',l,r) =>
-        if (i < i') then Node (i',insert l i,r)
+        if (i = i') then Node (i',l,r)
+        else if (i < i') then Node (i',insert l i,r)
         else Node (i',l,insert r i)
 ```
    </p>
