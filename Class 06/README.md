@@ -105,7 +105,6 @@ fun find t k = case t of
 val insert = fn : int btree -> int -> int btree
 (* For example *)
 - val t1 = Node(1, Empty, Empty);
-val t4 = Node (1,Empty,Empty) : int btree
 - insert t1 3;
 val it = Node (1,Empty,Node (3,Empty,Empty)) : int btree
 - insert t1 0;
@@ -148,6 +147,63 @@ fun len Nil = 0
 # Memory Management and Garbage Collection
 
 ## Memory management
-
+In a program, the memory used to store the data and code at run-time typically is split into three pieces:
+- Data segment: stores objects whose life cycle lives the entire program execution
+    - E.g. Global variables, code of program etc.
+- Heap: store the values of objects whose life cycle is dynamic
+    - The lifetime of objects 
+    - Managed by the programmer
+        - Use after free occurs --- access a dangling pointer
+        - Double free errors --- deallocating objects multiple times
+        - Memory leaks --- not deallocating after no longer used
+    - Automatically by the language
+        - Garbage collection
+        - Reference mounting
+        - Ownership types
+- Stack: store the values of local variables in function activation records
+    - Using stack is preferred because low overhead, allocated data is freed when data is no needed
+    - Objects that are allocated on the stack cannot change their size dynamically
 
 ## Garbage collection
+- Def. an automatic memory management. A garbage collector attempts to reclaim the memory occupied by objects that are no longer in use by the program.
+
+### Copying
+- Intuition
+    - Two parts: FROM space, TO space
+    - Objects allocated in FROM space
+    - When FROM space is full, run GC()
+    - During traversal, each encountered object is copied TO space
+    - When is done, all live objects are in TO space
+    - Swap FROM space and TO space
+    - By leaving a forward address, any pointers to the moved objects will be updated.
+- Algorithm
+```c++
+GC()
+  for each root pointer p do
+    p := traverse(p);
+    
+traverse(p)
+  if *p contains forwarding address then
+    p := *p;  // follow forwarding address
+    return p;
+  else 
+    new_p := copy (p, TO_SPACE);
+    *p := new_p; // write forwarding address
+    for each pointer field p->x do
+      new_p->x := traverse(p->x);
+    return new_p;
+```
+**Question:** How to do the traverse in 
+
+#### Exercise
+Consider this FROM heap, assume the root pointer points to objects `A`, `B`. Draw the FROM and TO space after the call to traverse for each of the roots. To be clear, you should draw 2 heaps (each with FROM and TO space).
+<p align="center">
+<img src="img/exer.png" height="60%" width="60%">
+</p>
+
+
+<details><summary>Solution</summary>
+<p align="center">
+<img src="img/exer.png" height="60%" width="60%">
+    </p>
+</details>
