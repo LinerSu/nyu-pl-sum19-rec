@@ -205,7 +205,7 @@ Suppose the root pointer now points to object `A`. Draw the FROM and TO space af
 
 
 #### Exercise
-Consider this FROM heap, assume the root pointer points to objects `A`, `B`. Draw the FROM and TO space after the call to `traverse` for each of the roots. To be clear, you should draw 2 heaps (each with FROM and TO space) with forwarding address pointers.
+Consider this FROM heap, assume the root pointer points to objects `A`, `B`. Draw the FROM and TO space after the call to `traverse` for each of root pointer. To be clear, you should draw 2 heaps (each with FROM and TO space) with forwarding address pointers.
 <p align="center">
 <img src="img/exer.png" height="60%" width="60%">
 </p>
@@ -216,3 +216,9 @@ Consider this FROM heap, assume the root pointer points to objects `A`, `B`. Dra
 <img src="img/ans.jpg" height="80%" width="80%">
     </p>
 </details>
+
+In you assignment, after each call of `traverse(p)` for a root pointer `p`, you should draw:
+- a table like stack for root pointers (based on the order in the question)
+- FROM space
+- TO space
+- forward addresses for the copied objects
