@@ -4,7 +4,7 @@ You can use [this](https://www.smlnj.org/) website to download standard ml. Or i
 ```
 brew install smlnj
 ```
-Once installed, use `sml` in your terminal.
+Once installed, type `sml` in your terminal to use SML compiler.
 
 You can also write a file of your assignment by using `.sml` extension. After named SML source file, open the compiler and type this:
 ```
