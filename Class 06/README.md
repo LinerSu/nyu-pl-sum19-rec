@@ -109,6 +109,8 @@ val insert = fn : int btree -> int -> int bstree
 val it = Node (1,Empty,Node (3,Empty,Empty)) : int bstree
 - insert t1 0;
 val it = Node (1,Node (0,Empty,Empty),Empty) : int bstree
+- insert t1 1;
+val it = Node (1,Empty,Empty) : int bstree
 ```
 
 <details><summary>Solution</summary>
