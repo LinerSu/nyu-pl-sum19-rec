@@ -193,7 +193,11 @@ traverse(p)
       new_p->x := traverse(p->x);
     return new_p;
 ```
-**Question:** How to do the traverse in 
+**Question:** How the `traverse` works? Consider the following example:
+<p align="center">
+<img src="img/exp1.png" height="60%" width="60%">
+</p>
+
 
 #### Exercise
 Consider this FROM heap, assume the root pointer points to objects `A`, `B`. Draw the FROM and TO space after the call to traverse for each of the roots. To be clear, you should draw 2 heaps (each with FROM and TO space).
@@ -204,6 +208,6 @@ Consider this FROM heap, assume the root pointer points to objects `A`, `B`. Dra
 
 <details><summary>Solution</summary>
 <p align="center">
-<img src="img/exer.png" height="60%" width="60%">
+<img src="img/ans.png" height="60%" width="60%">
     </p>
 </details>
