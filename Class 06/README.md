@@ -208,10 +208,6 @@ Consider this FROM heap, assume the root pointer points to objects `A`, `B`. Dra
 
 <details><summary>Solution</summary>
 <p align="center">
-<<<<<<< HEAD
-<img src="img/ans.jpg" height="60%" width="60%">
-=======
-<img src="img/ans.png" height="25%" width="25%">
->>>>>>> 83a88833b415bb9f201674bcea775ef2bf855d52
+<img src="img/ans.jpg" height="80%" width="80%">
     </p>
 </details>
