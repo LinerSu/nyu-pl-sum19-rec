@@ -99,7 +99,7 @@ fun find t k = case t of
 ```
 
 ### Exercise
-1. Write a function that insert a new tree Node to a given binary search tree:
+1. Write a function that insert a new tree Node to a binary search tree:
 ```sml
 (* function signature *)
 val insert = fn : int btree -> int -> int btree
