@@ -225,7 +225,7 @@ Consider this FROM heap, assume the root pointer points to objects `A`, `B`. Dra
     </p>
 
 In your assignment, after each call of `traverse(p)` for a root pointer `p`, you should draw:
-- a table like stack for root pointers (based on the order in the question)
+- a table like stack for root pointers (based on the order that question gives)
 - FROM space
 - TO space
 - forward addresses for the copied objects
