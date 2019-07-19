@@ -90,6 +90,10 @@ datatype 'a option = NONE | SOME of 'a
 ```
 This type is very useful when you try to search or find a value but may not always have a defined return value. For instance, here is how we can implement a function to find the value in a binary search tree, if such a value exists:
 ```sml
+datatype 'a bstree =
+      Empty 
+    | Node of 'a * 'a bstree * 'a bstree
+
 fun find t k = case t of
     Empty => NONE
   | Node (v, left, right) =>
@@ -101,6 +105,10 @@ fun find t k = case t of
 ### Exercise
 1. Write a function that insert a new tree Node to a binary search tree:
 ```sml
+(* type for binary search tree *)
+datatype 'a bstree =
+      Empty 
+    | Node of 'a * 'a bstree * 'a bstree
 (* function signature *)
 val insert = fn : int btree -> int -> int bstree
 (* For example *)
@@ -113,7 +121,7 @@ val it = Node (1,Node (0,Empty,Empty),Empty) : int bstree
 val it = Node (1,Empty,Empty) : int bstree
 ```
 
-<details><summary>Solution</summary>
+**Solution:**
     <p>
 
 ```sml
@@ -126,7 +134,7 @@ fun insert t i =
         else Node (i',l,insert r i)
 ```
    </p>
-</details>
+
 2. How to define a List by using ADTs?
 
 **Solution:**
@@ -211,13 +219,12 @@ Consider this FROM heap, assume the root pointer points to objects `A`, `B`. Dra
 </p>
 
 
-<details><summary>Solution</summary>
+**Solution**
 <p align="center">
 <img src="img/ans.jpg" height="80%" width="80%">
     </p>
-</details>
 
-In you assignment, after each call of `traverse(p)` for a root pointer `p`, you should draw:
+In your assignment, after each call of `traverse(p)` for a root pointer `p`, you should draw:
 - a table like stack for root pointers (based on the order in the question)
 - FROM space
 - TO space
