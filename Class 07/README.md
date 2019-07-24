@@ -6,11 +6,11 @@ brew install swi-prolog
 ```
 Once installed, type `swipl` in your terminal to use Prolog compiler.
 
-You can also write a file by using `.pl` extension. After named Prolog source file, open the compiler and type this:
+You can also write a file by using `.pl` extension. After named Prolog source file, open the interpreter and type this:
 ```
 ?- [file_name].
 ```
-This will state all facts you defined into database.
+This will state all clauses you defined into database.
 
 ## Data types
 Prolog is dynamically typed. It only contains one single datatype --- term.
@@ -28,9 +28,26 @@ Prolog is dynamically typed. It only contains one single datatype --- term.
     - Special cases:
         - List: `[]` empty list, `[1 | [2 | [3 | []]]]` = `[1,2,3]`
 
-## Facts
-- Def. 
-
+## Clause
+- Def. a unit of information in a Prolog program ending with (".")
     
 ### Format
-- Standard format: 
+- Fact: a clause with empty body.
+- Rule: a clause uses logical implication (`:-`) to describe a relationship among facts.
+    - `:-`: interpret it as "if".
+    - Conjunction:
+    - Disjunction:
+- Query: a list of one or more goals typed to the interpreter.
+    - Goal: something that the interpreter tries to satisfy so as to make it succeed.
+```prolog
+isList([]). /*Fact*/
+isList([_|T]):-isList(T). %Rule
+?- isList([1,2,3]). % Query
+```
+
+## Procedure
+- Def. A procedure in Prolog is a group of clauses about the same relation. For example,
+```prolog
+mem(X,[X|_]).
+mem(X,[_|T]):-mem(X, T).
+```
