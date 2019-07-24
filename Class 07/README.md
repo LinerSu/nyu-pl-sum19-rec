@@ -6,27 +6,30 @@ brew install swi-prolog
 ```
 Once installed, type `swipl` in your terminal to use Prolog compiler.
 
-You can also write a file of your assignment by using `.pl` extension. After named Prolog source file, open the compiler and type this:
+You can also write a file by using `.pl` extension. After named Prolog source file, open the compiler and type this:
 ```
 ?- [file_name].
 ```
+This will state all facts you defined into database.
 
 ## Data types
 Prolog is dynamically typed. It only contains one single datatype --- term.
 ### Kinds of term in Prolog
-- Atom --- 
-- Numbers --- could be integers or floats.
+- Atom --- a single data item. It could be a symbol (represented by lowercase characters), any characters in quotes or special characters.
+    - E.g. `x`, `'Taco'`, `+-*/<>`, etc.
+- Number --- could be integers or floats.
     - E.g. `1`, `2.0`
-- Variables --- a string beginning with an upper-case letter or underscore, it consists of letters, numbers and underscore characters
-    - E.g. `X`, `My_name`, etc
-- Compound term --- an atom + a number of arguments
-    - E.g. `isList([])`
+- Variable --- is a string beginning with an upper-case letter. It consists of letters, numbers and underscore characters
+    - E.g. `X`, `My_name`, etc.
+- Functor --- an atom + a number of arguments
+    - E.g. `likes(mary, pizza)`, etc.
+- Compound term (structure) --- an Functor + a number of arguments
+    - E.g. `isList([])`, `s(fst(curry), snd(fst(nested), snd(>o<)))`, etc.
     - Special cases:
-        - List:
-        - Strings:
+        - List: `[]` empty list, `[1 | [2 | [3 | []]]]` = `[1,2,3]`
+
 ## Facts
-- Def. the act of checking a given sequence of tokens for the presence of the constituents of some patterns.
-    - Think about "match a variable with certain cases and for each case, you will do several actions based on that case".
+- Def. 
 
     
 ### Format
