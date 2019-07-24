@@ -32,18 +32,27 @@ Prolog is dynamically typed. It only contains one single datatype --- term.
 - Def. a unit of information in a Prolog program ending with (".")
     
 ### Format
-- Fact: a clause with empty body.
-- Rule: a clause uses logical implication (`:-`) to describe a relationship among facts.
-    - `:-`: interpret it as "if".
-    - Conjunction:
-    - Disjunction:
-- Query: a list of one or more goals typed to the interpreter.
-    - Goal: something that the interpreter tries to satisfy so as to make it succeed.
 ```prolog
 isList([]). /*Fact*/
 isList([_|T]):-isList(T). %Rule
 ?- isList([1,2,3]). % Query
 ```
+- Fact: a clause with empty body.
+- Rule: a clause uses logical implication (`:-`) to describe a relationship among facts.
+    - `:-`: interpret it as "if".
+    - Goal: something that the interpreter tries to satisfy.
+    - Conjunction (logical and, `∧`): separating the subgoals by commas.
+        ```prolog
+        computer(X):- hasHardware(X), hasSoftware(X).
+        /* X is a computer if it contains hardware and software. */
+        ```
+    - Disjunction (logical or, `∨`): separating the subgoals by semicolons or defining by separated clauses.
+        ```prolog
+        weather(X):- isSunny(X).
+        weather(X):- isRainy(X).
+        /* weather X is either sunny or rainy. */
+        ```
+- Query: a list of one or more goals typed to the interpreter.
 
 ## Procedure
 - Def. A procedure in Prolog is a group of clauses about the same relation. For example,
@@ -51,3 +60,15 @@ isList([_|T]):-isList(T). %Rule
 mem(X,[X|_]).
 mem(X,[_|T]):-mem(X, T).
 ```
+
+### Evaluation rule
+- Variable
+    - Variables appearing in the goal are universally quantified.
+    - Variables appearing only in the subgoal are existentially quantified.
+    ```prolog
+    fun(X, Y):- sub_1(X, Z), sub_2(Z,Y).
+    /* ∀ X,Y. ∃ Z. to satisfy rule fun, they must satisfy sub_1(X, Z) and sub_2(Z,Y) */
+    ```
+- Resolution Principle
+    - Check lecture slides.
+- **Unification**
