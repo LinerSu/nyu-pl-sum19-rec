@@ -106,7 +106,8 @@ mem(X,[_|T]):-mem(X, T).
         - Def. a process to ensure that a variable isn't bound to a structure that contains itself.
         - In Prolog, we avoid occurs check, which can lead to unsoundness.
             - `X = f(X)` will unify success.
-Exercise:
+**Q: How unification works?**
+Consider this query:
 ```prolog
 ?- pl_teach(
    programming_language, semester(Semester), 
@@ -115,7 +116,7 @@ Exercise:
    What, semester('Summer 19'), 
    professor(given('Cory'), surname('Plock'))).
 ```
-Q: For each variable, what does it bind?
+For each variable, what does it bind?
 
 ## Execution Order
 - **Backward chaining**: given a goal (query) for some rules, backtracking is a way to backtrace and find some satisfiable facts/rules.
@@ -151,7 +152,8 @@ Q: For each variable, what does it bind?
     ?- not(mem(b, [a,c,d])).
     true.
     ```
-**Q: How backtrack works?**
+**Q: How backtracking works?**
+Consider this example:
 ```prolog
 /* Define p */
 p(a).
@@ -173,7 +175,9 @@ s(c).
 /* Define u */
 u(d). 
 ```
-Prolog uses a derivation tree for each goal. The edges in the derivation tree are labeled with the clause we defined so as to replace a goal by a subgoal. The subtree under any goals in the derivation tree correspond to different choices. The leaf represent each choice is correct or not for matching.
+Prolog uses a derivation tree for each goal. The edges in the derivation tree are labeled with the clause we defined so as to replace a goal by a subgoal. The subtree under any goals in the derivation tree correspond to different choices. The leaf represents the finalize choice is correct or not.
+
+When we query `p(X).`, how to draw the drivation tree for it?
 
 ## Exercise
 1. Implement a rule `append` to concatenate two lists:
