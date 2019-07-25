@@ -120,37 +120,37 @@ Q: For each variable, what does it bind?
 ## Execution Order
 - **Backward chaining**: given a goal (query) for some rules, backtracking is a way to backtrace and find some satisfiable facts/rules.
     - The interpreter tries to match facts and rules by the order of their definition.
-Consider this example, we check if an item exists in list or not:
-```
-mem(X,[X|_]).
-mem(X,[_|T]):-mem(X, T).
-```
-By using backtracking mechanism, we could find all possible solutions:
-```prolog
-?-  mem(1,[2,3,1,1]).
-true ;
-true ;
-false.
-```
+    - Consider this example, we check if an item exists in list or not:
+    ```prolog
+    mem(X,[X|_]).
+    mem(X,[_|T]):-mem(X, T).
+    ```
+    - By using backtracking mechanism, we could find all possible solutions:
+    ```prolog
+    ?-  mem(1,[2,3,1,1]).
+    true ;
+    true ;
+    false.
+    ```
 - **Cut Operator**: a way to stop backtacking (avoid redo)
-```prolog
-mem_noback(X,[X|_]):- !.
-mem_noback(X,[_|T]):-mem_noback(X, T).
-```
-By using this rule, we only consider the first fact that satisfy the goal:
-```prolog
-?- mem_noback(X,[1,2,3]).
-X = 1.
-?- mem_noback(1,[1,1,1]).
-true.
-```
+    ```prolog
+    mem_noback(X,[X|_]):- !.
+    mem_noback(X,[_|T]):-mem_noback(X, T).
+    ```
+   - By using this rule, we only consider the first fact that satisfy the goal:
+    ```prolog
+    ?- mem_noback(X,[1,2,3]).
+    X = 1.
+    ?- mem_noback(1,[1,1,1]).
+    true.
+    ```
 - **Negation**: a way to negate the subgoal.
-```
-?- \+ (2 = 4).
-true.
-?- not(mem(b, [a,c,d])).
-true.
-```
+    ```prolog
+    ?- \+ (2 = 4).
+    true.
+    ?- not(mem(b, [a,c,d])).
+    true.
+    ```
 **Q: How backtrack works?**
 ```prolog
 /* Define p */
