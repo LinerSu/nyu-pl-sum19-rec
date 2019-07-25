@@ -112,7 +112,7 @@ mem(X,[_|T]):-mem(X, T).
 
 
 ## Exercise
-1. Implement a rule `append` 
+1. Implement a rule `append` to concatenate two lists:
 ```prolog
 ?- append([4],[1,2],X).
 X = [4,1,2].
@@ -124,7 +124,7 @@ X = [1].
 X = [].
 ```
 2. Is there any problem from previous sample solution?
-3. Implement a rule `palindrome` to determine if a list is a palindrome.
+3. Implement a rule `palindrome` to determine if a list is a palindrome:
 ```prolog
 ?- palindrome([]).
 true.
