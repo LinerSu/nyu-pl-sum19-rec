@@ -127,7 +127,7 @@ mem(X,[_|T]):-mem(X, T).
 ```
 By using backtracking mechanism, we could find all possible solutions:
 ```prolog
-?-  v(1,[2,3,1,1]).
+?-  mem(1,[2,3,1,1]).
 true ;
 true ;
 false.
@@ -151,6 +151,29 @@ true.
 ?- not(mem(b, [a,c,d])).
 true.
 ```
+**Q: How backtrack works?**
+```prolog
+/* Define p */
+p(a).
+p(X) :- q(X), r(X).
+p(X) :- u(X).
+
+/* Define q */
+q(X) :- s(X).
+
+/* Define r */
+r(a). 
+r(b). 
+
+/* Define s */
+s(a).  
+s(b). 
+s(c). 
+
+/* Define u */
+u(d). 
+```
+Prolog uses a derivation tree for each goal. The edges in the derivation tree are labeled with the clause we defined so as to replace a goal by a subgoal. The subtree under any goals in the derivation tree correspond to different choices. The leaf represent each choice is correct or not for matching.
 
 ## Exercise
 1. Implement a rule `append` to concatenate two lists:
