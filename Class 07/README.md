@@ -106,6 +106,16 @@ mem(X,[_|T]):-mem(X, T).
         - Def. a process to ensure that a variable isn't bound to a structure that contains itself.
         - In Prolog, we avoid occurs check, which can lead to unsoundness.
             - `X = f(X)` will unify success.
+Exercise:
+```prolog
+?- pl_teach(
+   programming_language, semester(Semester), 
+   professor(given('Cory'), SurenameTerm)) 
+   = pl_teach(
+   What, semester('Summer 19'), 
+   professor(given('Cory'), surname('Plock'))).
+```
+Q: For each variable, what does it bind?
 
 ## Execution Order
 - **Backward chaining**: given a goal (query) for some rules, backtracking is a way to backtrace and find some satisfiable facts/rules.
