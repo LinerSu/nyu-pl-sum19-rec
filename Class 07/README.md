@@ -106,7 +106,9 @@ mem(X,[_|T]):-mem(X, T).
         - Def. a process to ensure that a variable isn't bound to a structure that contains itself.
         - In Prolog, we avoid occurs check, which can lead to unsoundness.
             - `X = f(X)` will unify success.
+
 **Q: How unification works?**
+
 Consider this query:
 ```prolog
 ?- pl_teach(
@@ -153,6 +155,7 @@ For each variable, what does it bind?
     true.
     ```
 **Q: How backtracking works?**
+
 Consider this example:
 ```prolog
 /* Define p */
