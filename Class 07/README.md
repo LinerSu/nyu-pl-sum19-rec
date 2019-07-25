@@ -108,11 +108,29 @@ mem(X,[_|T]):-mem(X, T).
             - `X = f(X)` will unify success.
 
 ## Execution Order
-1. Forward chaining:
-2. Backward chaining:
+- Backward chaining:
 
 
 ## Exercise
-1. Implement function 
-2. Is there any for previous sample solution?
-3. Implement a rule for palindrome.
+1. Implement a rule `append` 
+```prolog
+?- append([4],[1,2],X).
+X = [4,1,2].
+?- append([],[1],X).
+X = [1].
+?- append([1],[],X).
+X = [1].
+?- append([],[],X).
+X = [].
+```
+2. Is there any problem from previous sample solution?
+3. Implement a rule `palindrome` to determine if a list is a palindrome.
+```prolog
+?- palindrome([]).
+true.
+?- palindrome([1]).
+true.
+?- palindrome([1,2,3]).
+false.
+```
+
