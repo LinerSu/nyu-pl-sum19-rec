@@ -4,7 +4,7 @@ You can use [this](https://www.swi-prolog.org/) website to download Prolog. Or i
 ```
 brew install swi-prolog 
 ```
-Once installed, type `swipl` in your terminal to use Prolog compiler.
+Once installed, type `swipl` in your terminal to use Prolog interpreter.
 
 You can also write a file by using `.pl` extension. After named Prolog source file, open the interpreter and type this:
 ```
@@ -164,4 +164,12 @@ true.
 ?- palindrome([1,2,3]).
 false.
 ```
-
+4. Implement a rule `subset` which takes two sets and checks either the first set is a subset of second one. 
+```prolog
+?- subset([3,2],[1,2,3]).
+true.
+?- subset([3,4],[1,2,3]).
+false.
+?- subset([],[1,2,3]).
+true.
+```
