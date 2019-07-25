@@ -36,7 +36,16 @@ Prolog is dynamically typed. It only contains one single datatype --- term.
     - `>=`: operates on numbers and variables only
     - `is`: the two operands have the same values
     - `=`: the two operands are identical
+        - this operator could also be used to unify two terms
     - `=\=`: the two operands do not have the same values
+```prolog
+?- 1 =< 2.
+true.
+?- 2 is 1 + 1.
+true.
+?- 2 = 1 + 1.
+false.
+```
 
 ## Clause
 - Def. a unit of information in a Prolog program ending with (".")
@@ -101,3 +110,9 @@ mem(X,[_|T]):-mem(X, T).
 ## Execution Order
 1. Forward chaining:
 2. Backward chaining:
+
+
+## Exercise
+1. Implement function 
+2. Is there any for previous sample solution?
+3. Implement a rule for palindrome.
