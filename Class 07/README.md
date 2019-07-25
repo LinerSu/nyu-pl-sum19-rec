@@ -27,6 +27,16 @@ Prolog is dynamically typed. It only contains one single datatype --- term.
     - E.g. `isList([])`, `s(fst(curry), snd(fst(nested), snd(>o<)))`, etc.
     - Special cases:
         - List: `[]` empty list, `[1 | [2 | [3 | []]]]` = `[1,2,3]`
+### Operation
+- Arithmetic operators: `+`, `-`, `*`, `/`. They only operates on numbers and variables.
+- Comparison operators:
+    - `<`: operates on numbers and variables only
+    - `>`: operates on numbers and variables only
+    - `=<`: operates on numbers and variables only
+    - `>=`: operates on numbers and variables only
+    - `is`: the two operands have the same values
+    - `=`: the two operands are identical
+    - `=\=`: the two operands do not have the same values
 
 ## Clause
 - Def. a unit of information in a Prolog program ending with (".")
@@ -61,7 +71,7 @@ mem(X,[X|_]).
 mem(X,[_|T]):-mem(X, T).
 ```
 
-### Evaluation rule
+### Evaluation Rule
 - Variable
     - Variables appearing in the goal are universally quantified.
     - Variables appearing only in the subgoal are existentially quantified.
@@ -72,3 +82,22 @@ mem(X,[_|T]):-mem(X, T).
 - Resolution Principle
     - Check lecture slides.
 - **Unification**
+    - Def. the process to solve equations between two terms.
+    - Algorithm: given two terms `t1` and `t2` which are to be unified
+        - If `t1` and `t2` are constants, they must be identical to successfully unify, otherwise fails.
+            - `2 = 2` will be evaluated as true due to two identical atoms unify.
+        - If `t1` is variable, then instantiate `t1` to `t2`.
+            - `X = 2` will let `X` binds to value `2` because `X` unifies with `2`.
+        - If `t2` is variable, then instantiate `t2` to `t1`.
+        - If `t1` and `t2` are complex terms with the same number of arguments, they could unify success iff they have identical primary functor and recursively unify success for each pair of arguments from the same position.
+            - `foo(f(c,d), k(r)) = foo(f(c,d), k(r))` will be evaluated as true because two terms are identical.
+            - `foo(a,Y) = foo(X,b)` could be true iff `X = a, Y = b`
+        - Otherwise, fails to unify.
+    - Occurs Check: 
+        - Def. a process to ensure that a variable isn't bound to a structure that contains itself.
+        - In Prolog, we avoid occurs check, which can lead to unsoundness.
+            - `X = f(X)` will unify success.
+
+## Execution Order
+1. Forward chaining:
+2. Backward chaining:
