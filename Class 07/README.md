@@ -10,7 +10,7 @@ You can also write a file by using `.pl` extension. After named Prolog source fi
 ```
 ?- [file_name].
 ```
-This will state all clauses you defined into database.
+This will state all clauses you defined into database. When you are done, type `halt.` to exit the Prolog interpreter.
 
 ## Data types
 Prolog is dynamically typed. It only contains one single datatype --- term.
@@ -23,7 +23,7 @@ Prolog is dynamically typed. It only contains one single datatype --- term.
     - E.g. `X`, `My_name`, etc.
 - Functor --- an atom + a number of arguments
     - E.g. `likes(mary, pizza)`, etc.
-- Compound term (structure) --- an Functor + a number of arguments
+- Compound term (structure) --- an Functor [start one](http://www.cse.unsw.edu.au/~billw/dictionaries/prolog/functor.html) + a number of arguments
     - E.g. `isList([])`, `s(fst(curry), snd(fst(nested), snd(>o<)))`, etc.
     - Special cases:
         - List: `[]` empty list, `[1 | [2 | [3 | []]]]` = `[1,2,3]`
@@ -120,6 +120,13 @@ Consider this query:
 ```
 For each variable, what does it bind?
 
+**Answer:** 
+```prolog
+Semester = 'Summer 19',
+SurenameTerm = surname('Plock'),
+What = programming_language.
+```
+
 ## Execution Order
 - **Backward chaining**: given a goal (query) for some rules, backtracking is a way to backtrace and find some satisfiable facts/rules.
     - The interpreter tries to match facts and rules by the order of their definition.
@@ -182,6 +189,9 @@ Prolog uses a derivation tree for each goal. The edges in the derivation tree ar
 
 When we query `p(X).`, how to draw the drivation tree for it?
 
+**Answer:**
+- Check [this](https://www.cpp.edu/~jrfisher/www/prolog_tutorial/3_1.html) page.
+
 ## Exercise
 1. Implement a rule `append` to concatenate two lists:
 ```prolog
@@ -194,16 +204,38 @@ X = [1].
 ?- append([],[],X).
 X = [].
 ```
+**Answer:**
+
+There is one possible solution:
+```prolog
+apd([], L, L).
+apd([X|T], L, [X|Rs]):- apd(T, L, Rs).
+```
 2. Is there any problem from previous sample solution?
+**Answer:**
+
+The second argument of `append` may not be a list.
+```prolog
+?- append([],12,12).
+true.
+```
+Thus, we could add one subgoal to ensure that the second argument is a list:
+```prolog
+append([], L, L):-isList(L).
+append([X|T], L, [X|Rs]):- append(T, L, Rs).
+```
 3. Implement a rule `palindrome` to determine if a list is a palindrome:
 ```prolog
 ?- palindrome([]).
 true.
 ?- palindrome([1]).
 true.
+?- palindrome([1,2,1]).
+true.
 ?- palindrome([1,2,3]).
 false.
 ```
+**Answer:** Please find `prolog1.pl` for more details.
 4. Implement a rule `subset` which takes two sets and checks either the first set is a subset of second one. 
 ```prolog
 ?- subset([3,2],[1,2,3]).
@@ -213,3 +245,10 @@ false.
 ?- subset([],[1,2,3]).
 true.
 ```
+**Answer:** Please find `prolog1.pl` for more details.
+
+## Note
+- The idea to design a procedure is very similar to write a pattern matching in functional language. You should consider several cases (patterns) for arguments and add subgoals to fulfill the case if necessary.
+- For debugging, you can use `trace.` mode to observe the behavior of your procedure.
+    - type `nodebug.` to exit the trace mode.
+- Using cut operator or negation is very helpful for your implementation.
