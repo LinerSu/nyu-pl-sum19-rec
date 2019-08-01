@@ -1,13 +1,13 @@
 # Object-oriented programming
 - Def. a programming paradigm based on the concept of "objects".
-- Difference between OOP and OBP: Object-based programming does not support inheritance or subtyping
+- Difference between OOP and OBP: Object-based programming does not support inheritance or subtyping.
 
 ## Class OOP
 ### Class
 - Class always be viewed as a template to create objects.
 - Components
-    - Data, in the form of fields, often known as attributes
-    - Code, in the form of procedures, often known as methods
+    - Data, in the form of fields, often known as attributes.
+    - Code, in the form of procedures, often known as methods.
         - Constructor: a method for object's initilization.
             - Types: [Java](https://beginnersbook.com/2013/03/constructors-in-java/), [C++](https://www.geeksforgeeks.org/constructors-c/)
         - Destructor: a method for object's deletion.
@@ -47,8 +47,8 @@ private:
     - Multiple inheritance: `C <- A`, `C <- B`
     - Multilevel inheritance: `C <- B <- A`
 - Substitution Principle
-    - The type of a subclass (inherited) can extend the type of its superclass by adding new members (attributes and methods)
-    - Objects that belong to the subclass can be used whenever an object of the superclass is expected
+    - The type of a subclass (inherited) can extend the type of its superclass by adding new members (attributes and methods).
+    - Objects that belong to the subclass can be used whenever an object of the superclass is expected.
 ### Overiding methods (Polymorphism)
 - Def. a feature that allows a subclass or child class to provide a specific implementation of a method that is already provided by one of its superclasses or parent classes.
 
