@@ -29,6 +29,7 @@ private:
 ```
 ### Information hiding (Encapsulation)
 - Def. a machanism for restricting direct access to some of object's components.
+- Common access level: private, protected and public.
 - Table for the access level:
 <p align="center">
 <img src="img/enca.png" height="60%" width="60%">
@@ -52,14 +53,15 @@ private:
 - Def. a feature that allows a subclass or child class to provide a specific implementation of a method that is already provided by one of its superclasses or parent classes.
 
 ### Static vs. Dynamic Types
-- Static type: the type that the compiler infers or programmer declares for that expression at compile-time
-- Dynamic type: the actual type of the value obtained when the expression is evaluated at run-time
-Consider the following example:
+- Static type: the type that the compiler infers or programmer declares for that expression at **compile-time**.
+- Dynamic type: the actual type of the value obtained when the expression is evaluated at **run-time**.
+- Consider the following example:
 ```Java
 class A{
-  A() { x = 0; }
+  A() { x = 0; z = 0;}
   public int m() { return x; }
   public int x;
+  private int z;
 }
 
 class B extends A {
@@ -78,27 +80,37 @@ class Main {
   }
 }
 ```
-When you execute `A a = new B();`, the static type for object `a` is `A`, which means object `a` could **directly access** the *unrestricted* components from class `A`. However, the dynamic type for variable `a` is `B` and it will refers as a `B` instance. When you allocate memory to `a` on the heap, the size for object `a` is the same size as an object for class `B`. Here are the data layouts for those two objects:
-```diff
-!Objects' data layout in memory
-
-A Instance (act_a):
-    ┌─────────────┐
-    │ value of x  │> members of A
-    └─────────────┘
-B Instance (a):
-    ┌─────────────┐
-    │ value of x  │> members of A
-    ├═════════════┤
-    │ value of y  │> additional members of B
-    └─────────────┘
-```
+When you execute `A a = new B();`, the static type for object `a` is `A`, which means object `a` could **directly access** the *unrestricted* components from class `A`. However, the dynamic type for variable `a` is `B` and it will refers as a `B` instance. When you allocate memory to `a` on the heap, the size for object `a` is the same size as an object for class `B`. 
 **Q: How to inherit the methods?**
 ### Dynamic dispatch
 - Def. the process of selecting which implementation of a polymorphic operation to call at run time.
+- Variants **[Very Importent]!!!**
     - In Java, every non-static method is by default virtual method except final and private methods.
         - The methods which cannot be inherited for polymorphic behavior is not a virtual method.
     - In C++, explicitly use [virtual function](https://www.geeksforgeeks.org/virtual-function-cpp/) to achieve this.
+- Object data layout in memory
+    - Order by declaration.
+    - Each data member can be accessed via a fixed offset from the base address of the data layout.
+    - Subclass objects have the same memory layout as superclass objects with additional space for the subclass members that succeeds the space for the superclass members.
+    - Here are the data layouts for those two objects:
+    ```diff
+    !Objects' data layout in memory
+
+    A Instance (act_a):
+        ┌─────────────┐
+        │ value of x  │
+        ├─────────────┤> members of A
+        │ value of z  │
+        └─────────────┘
+    B Instance (a):
+        ┌─────────────┐
+        │ value of x  │
+        ├─────────────┤> members of A
+        │ value of z  │
+        ├═════════════┤
+        │ value of y  │> additional members of B
+        └─────────────┘
+    ```
 
 
 #### Virtual method Table (Vtable)
