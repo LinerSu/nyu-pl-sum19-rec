@@ -93,7 +93,7 @@ When you execute `A a = new B();`, the static type for object `a` is `A`, which 
     - uses for non-virtual functions in C++.
     - uses for static methods or methods with final or private keyword in Java.
     - At compile time, these methods' call are the same as normal functions' call.
-        - fetch method pointer -> call
+        - fetch method pointer -> make a call
 - Object data layout in memory
     - Order by declaration.
     - Each data member can be accessed via a fixed offset from the base address of the data layout.
@@ -128,7 +128,7 @@ When you execute `A a = new B();`, the static type for object `a` is `A`, which 
     - Pointers to functions are order by declaration.
 - The data layout could access vtable by adding one member variable called virtual pointer.
     - When a call to virtual method, the run-time system looks up the vtable of the instance's dynamic type via the vpointer, and then looks up the method's implementation for that type via the corresponding pointer in the vtable.
-        - fetch vpointer -> fetch method pointer -> call
+        - fetch vpointer -> fetch method pointer -> make a call
 - Inheritance:
     - A vtable for subclass is created by copying the vtable from superclass and changing the pointers of overridden methods to point to the new implementation.
     - When instance creates, the vpointer of that instance will be set to the right vtable of the instance's class.
@@ -139,7 +139,7 @@ Consider the following Java code:
 ```java
 class A {
     private A m1(){
-      System.out.println("A.m1(String)");
+      System.out.println("A.m1()");
       return new A();
     }
     public void m2(){
@@ -156,7 +156,7 @@ class A {
   
   class B extends A {
     private B m1(){
-      System.out.println("B.m1(String)");
+      System.out.println("B.m1()");
       return new B();
     }
     
@@ -193,7 +193,7 @@ class Main {
 var foo = {one: 1, two: 2};
 var bar = Object.create( foo ); // bar = clone(foo)
 bar.three = 3; // add new field
-bar.two = "this is two"; // add new field two, and shadow prototype's two
+bar.two = "this is two"; // add new field two, and shadow proto object's two
 bar;
 /*
 three: 3
