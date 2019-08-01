@@ -189,6 +189,7 @@ class Main {
     - `__proto__` in JavaScript.
 - Cloning (inheritance) is performed by behaviour reuse.
     - A process of reusing existing objects via delegation that serve as prototypes.
+        - Delegation: refers to evaluating a member (property or method) of one object in the context of another original object.
 ```js
 var foo = {one: 1, two: 2};
 var bar = Object.create( foo ); // bar = clone(foo)
