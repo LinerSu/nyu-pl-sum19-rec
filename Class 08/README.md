@@ -98,7 +98,7 @@ When you execute `A a = new B();`, the static type for object `a` is `A`, which 
     - Order by declaration.
     - Each data member can be accessed via a fixed offset from the base address of the data layout.
     - Subclass objects have the same memory layout as superclass objects with additional space for the subclass members that succeeds the space for the superclass members.
-    - Here are the data layouts for those two objects:
+    - Here are the data layouts for objects `a` and `act_a`:
     ```diff
     !Objects' data layout in memory
 
