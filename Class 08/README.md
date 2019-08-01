@@ -81,7 +81,7 @@ class Main {
 }
 ```
 When you execute `A a = new B();`, the static type for object `a` is `A`, which means object `a` could **directly access** the *unrestricted* components from class `A`. However, the dynamic type for variable `a` is `B` and it will refers as a `B` instance. When you allocate memory to `a` on the heap, the size for object `a` is the same size as an object for class `B`. 
-**Q: How to inherit the methods?**
+
 ### Dynamic dispatch
 - Def. the process of selecting which implementation of a polymorphic operation to call at run time.
 - Variants **[Very Importent]!!!**
@@ -111,7 +111,7 @@ When you execute `A a = new B();`, the static type for object `a` is `A`, which 
         │ value of y  │> additional members of B
         └─────────────┘
     ```
-
+**Q: How to inherit the methods?**
 
 #### Virtual method Table (Vtable)
 
