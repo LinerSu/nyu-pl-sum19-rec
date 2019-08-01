@@ -163,7 +163,7 @@ class Main {
 }
 ```
 1. What are the static and dynamic types of `a1`, `a2` and `a3`?
-2. Consider the previous example, what methods are the call `a2.m2()`, `a1.m3()` and `a3.m2()` dispatched to?
+2. What methods are the call `a2.m2()`, `a1.m3()` and `a3.m2()` dispatched to?
 
 ## Prototype OOP
 
