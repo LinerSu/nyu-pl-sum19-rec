@@ -4,7 +4,7 @@
 
 ## Class OOP
 ### Class
-- Class always be viewed as a template to create objects.
+- Class is always viewed as a template ('blueprint') to create objects.
 - Components
     - Data, in the form of fields, often known as attributes.
     - Code, in the form of procedures, often known as methods.
