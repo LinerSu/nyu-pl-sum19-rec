@@ -184,7 +184,26 @@ class Main {
 2. What methods are the call `a2.m2()`, `a1.m3()` and `a3.m2()` dispatched to?
 
 ## Prototype OOP
-
+- Def. Object is not related to class. It could be created as an empty object or cloned from an existing object (prototype object).
+- Objects inherit directly from other objects through a prototype property.
+    - `__proto__` in JavaScript.
+- Cloning (inheritance) is performed by behaviour reuse.
+    - A process of reusing existing objects via delegation that serve as prototypes.
+```js
+var foo = {one: 1, two: 2};
+var bar = Object.create( foo ); // bar = clone(foo)
+bar.three = 3; // add new field
+bar.two = "this is two"; // add new field two, and shadow prototype's two
+bar;
+/*
+three: 3
+two: "this is two"
+__proto__:
+    name: "foo"
+    one: 1
+    two: 2
+*/
+```
 
 ## Note
 1. There is one great [explanation](https://stackoverflow.com/a/34462741/4608339) of static/dynamic dispatch in C++, hope it help you understand the difference.
