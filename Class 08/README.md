@@ -104,17 +104,17 @@ When you execute `A a = new B();`, the static type for object `a` is `A`, which 
 
     A Instance (act_a):
         ┌─────────────┐
-        │ value of x  │
+        │    x = 0    │
         ├─────────────┤> members of A
-        │ value of z  │
+        │    z = 0    │
         └─────────────┘
     B Instance (a):
         ┌─────────────┐
-        │ value of x  │
+        │    x = 1    │
         ├─────────────┤> members of A
-        │ value of z  │
+        │    z = 0    │
         ├═════════════┤
-        │ value of y  │> additional members of B
+        │    y = 2    │> additional members of B
         └─────────────┘
     ```
 **Q: How to inherit the methods?**
