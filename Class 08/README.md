@@ -2,7 +2,7 @@
 - Def. a programming paradigm based on the concept of "objects".
 - Difference between OOP and OBP: Object-based programming does not support inheritance or subtyping
 
-## Class & Object
+## Class OOP
 ### Class
 - Class always be viewed as a template to create objects.
 - Components
@@ -29,8 +29,8 @@ private:
 ```
 ### Information hiding (Encapsulation)
 - Def. a machanism for restricting direct access to some of object's components.
-- Common access level: private, protected and public.
-- Table for the access level:
+- Common access modifiers: private, protected and public.
+- Table for the access modifier:
 <p align="center">
 <img src="img/enca.png" height="60%" width="60%">
 </p>
@@ -80,7 +80,7 @@ class Main {
   }
 }
 ```
-When you execute `A a = new B();`, the static type for object `a` is `A`, which means object `a` could **directly access** the *unrestricted* components from class `A`. However, the dynamic type for variable `a` is `B` and it will refers as a `B` instance. When you allocate memory to `a` on the heap, the size for object `a` is the same size as an object for class `B`. 
+When you execute `A a = new B();`, the static type for object `a` is `A`, which means object `a` could **only access** the components from class `A`. However, the dynamic type for variable `a` is `B` and it will refers as a `B` instance (object). When you allocate memory to `a` on the heap, the size for object `a` is the same size as an object for class `B`. 
 
 ### Dynamic dispatch
 - Def. the process of selecting which implementation of a polymorphic operation to call at run time.
@@ -88,6 +88,12 @@ When you execute `A a = new B();`, the static type for object `a` is `A`, which 
     - In Java, every non-static method is by default virtual method except final and private methods.
         - The methods which cannot be inherited for polymorphic behavior is not a virtual method.
     - In C++, explicitly use [virtual function](https://www.geeksforgeeks.org/virtual-function-cpp/) to achieve this.
+- [Static dispatch](https://en.wikipedia.org/wiki/Static_dispatch).
+    - a form of polymorphism fully resolved during compile time.
+    - uses for non-virtual functions in C++.
+    - uses for static methods or methods with final or private keyword in Java.
+    - At compile time, these methods' call are the same as normal functions' call.
+        - fetch method pointer -> call
 - Object data layout in memory
     - Order by declaration.
     - Each data member can be accessed via a fixed offset from the base address of the data layout.
@@ -112,8 +118,20 @@ When you execute `A a = new B();`, the static type for object `a` is `A`, which 
         └─────────────┘
     ```
 **Q: How to inherit the methods?**
+- Approach as data.
+    - for each object, we have to add every method during memory creation.
+- Virtual table.
 
 #### Virtual method Table (Vtable)
+- Def. each class has its own vtable which is shared by all instances of that class.
+    - Inside this table, it contains an array of pointers to functions that implement the virtual methods of the class.
+    - Pointers to functions are order by declaration.
+- The data layout could access vtable by adding one member variable called virtual pointer.
+    - When a call to virtual method, the run-time system looks up the vtable of the instance's dynamic type via the vpointer, and then looks up the method's implementation for that type via the corresponding pointer in the vtable.
+        - fetch vpointer -> fetch method pointer -> call
+- Inheritance:
+    - A vtable for subclass is created by copying the vtable from superclass and changing the pointers of overridden methods to point to the new implementation.
+    - When instance creates, the vpointer of that instance will be set to the right vtable of the instance's class.
 
 **Example**
 
@@ -167,4 +185,6 @@ class Main {
 
 ## Prototype OOP
 
+
 ## Note
+1. There is one great [explanation](https://stackoverflow.com/a/34462741/4608339) of static/dynamic dispatch in C++, hope it help you understand the difference.
