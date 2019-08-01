@@ -193,6 +193,7 @@ class Main {
 ```js
 var foo = {one: 1, two: 2};
 var bar = Object.create( foo ); // bar = clone(foo)
+bar.one; // return 1, bar refers foo.a
 bar.three = 3; // add new field
 bar.two = "this is two"; // add new field two, and shadow proto object's two
 bar;
