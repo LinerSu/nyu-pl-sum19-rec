@@ -228,8 +228,9 @@ class Main {
 ```
 1. What are the static and dynamic types of `a1`, `a2` and `a3`?
 2. What methods are the call `a2.m2()`, `a1.m3()` and `a3.m2()` dispatched to?
+
 **Solution**
-Firstly, we draw the mempry map for each object:
+Draw the memory map for each object:
 ```
                                                                         +-------------+
         B instance                B's vtable                        ┌──>|impl. of B.m2|
@@ -255,7 +256,7 @@ a2 ───> +----------+            ┌>+-------------+               |   |   
 - To determine dynamic type, we check the actual instance pointed for each object.
 - To determine static type, we check the type for each object in the code.
 2. call for `a2.m2()` dispatched to `A.m2`; `a1.m3()` dispatched to `A.m3`; `a3.m2()` dispatched to `B.m2`.
-- To determine dispatch, we check each object's instance, and look up the virtual table.
+- To determine dynamic dispatch, we check each object's instance, and look up the virtual table.
 
 ## Prototype OOP
 - Def. Object is not related to class. It could be created as an empty object or cloned from an existing object (prototype object).
