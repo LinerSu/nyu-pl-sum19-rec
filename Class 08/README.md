@@ -42,20 +42,44 @@ private:
 
 ### Inheritance
 - Def. a mechanism to derive a class (subclass) from another class (superclass) for a hierarchy of classes that share a set of attributes and methods.
+- Inheritance rule
+    - Data, all attributes from superclass will be inherited by the subclass.
+    - Code, depends on what type of methods you have in the superclass. For example, for non-static method:
+        - Private method will not be inherited.
+        - Other methods will be inherited to subclass.
+        - Check for more details: [C++](https://www.tutorialspoint.com/cplusplus/cpp_inheritance), [Java](https://www.codejava.net/java-core/the-java-language/12-rules-of-overriding-in-java-you-should-know)
+- Example for C++:
+```c++
+class A {
+void method_1() {...}
+void method_2() {...}
+};
+class B: public A { // class B publicly inherits class A, B <- A
+// Implicitly inherits method_1 from class A
+void method_2() {...} // method_2 has been overridden
+void method_3() {...} // New methods just for class B
+};
+// B is subclass of A, A is superclass of B.
+```
 - Variants (`<-`, inherits)
     - Single inheritance: `B <- A`
     - Multiple inheritance: `C <- A`, `C <- B`
     - Multilevel inheritance: `C <- B <- A`
 - Substitution Principle
-    - The type of a subclass (inherited) can extend the type of its superclass by adding new members (attributes and methods).
+    - The type of a subclass can extend the type of its superclass by adding new members (attributes and methods).
+        - e.g. `method_3` in class `B`.
     - Objects that belong to the subclass can be used whenever an object of the superclass is expected.
+        - Due to inheritance features, object for subclass is safe to assign / pass to variable declared as superclass type.
+            - `A *a = new B()`
+        - The reason why dynamic dispatch could be achieved.
 ### Overiding methods (Polymorphism)
 - Def. a feature that allows a subclass or child class to provide a specific implementation of a method that is already provided by one of its superclasses or parent classes.
+    - For example, when you have an object `B b`, `b.method_1()` allowed.
 
 ### Static vs. Dynamic Types
 - Static type: the type that the compiler infers or programmer declares for that expression at **compile-time**.
 - Dynamic type: the actual type of the value obtained when the expression is evaluated at **run-time**.
-- Consider the following example:
+- Consider the following Java example:
 ```Java
 class A{
   A() { x = 0; z = 0;}
@@ -73,10 +97,10 @@ class B extends A {
 
 class Main {
   public static void main(String[] args) {
-    A a = new B();
+    A a = new B(); // static: A, dynamic: B
     // int z = a.y; // Not allowed
-    System.out.printf("The result of m should be: %d\n", a.m());
-    A act_a = new A(); // sizeof(act_a) == sizeof(a)?
+    System.out.printf("The result of m should be: %d\n", a.m()); // actual call method m in class B
+    A act_a = new A(); // sizeof(act_a) == sizeof(a)? No!
   }
 }
 ```
@@ -93,14 +117,16 @@ When you execute `A a = new B();`, the static type for object `a` is `A`, which 
     - uses for non-virtual functions in C++.
     - uses for static methods or methods with final or private keyword in Java.
     - At compile time, these methods' call are the same as normal functions' call.
-        - fetch method pointer -> make a call
+        - Procedure: fetch method pointer -> make a call
+        - some compiler will directly translate the method's call to the address for call in the code during the code generation.
 - Object data layout in memory
-    - Order by declaration.
+    - Data layout contains attributes (data members) for each instance of a class.
+    - They are order by the declaration.
     - Each data member can be accessed via a fixed offset from the base address of the data layout.
     - Subclass objects have the same memory layout as superclass objects with additional space for the subclass members that succeeds the space for the superclass members.
     - Here are the data layouts for objects `a` and `act_a`:
     ```diff
-    !Objects' data layout in memory
+    !Objects' data layouts in memory
 
     A Instance (act_a):
         ┌─────────────┐
@@ -117,21 +143,41 @@ When you execute `A a = new B();`, the static type for object `a` is `A`, which 
         │    y = 2    │> additional members of B
         └─────────────┘
     ```
-**Q: How to inherit the methods?**
-- Approach as data.
-    - for each object, we have to add every method during memory creation.
-- Virtual table.
 
 #### Virtual method Table (Vtable)
 - Def. each class has its own vtable which is shared by all instances of that class.
+    - A way to store the virtual method's pointer for each class.
     - Inside this table, it contains an array of pointers to functions that implement the virtual methods of the class.
-    - Pointers to functions are order by declaration.
+    - Pointers to methods are order by declaration.
 - The data layout could access vtable by adding one member variable called virtual pointer.
     - When a call to virtual method, the run-time system looks up the vtable of the instance's dynamic type via the vpointer, and then looks up the method's implementation for that type via the corresponding pointer in the vtable.
-        - fetch vpointer -> fetch method pointer -> make a call
+        - Procedure: fetch vpointer -> fetch method pointer -> make a call
 - Inheritance:
     - A vtable for subclass is created by copying the vtable from superclass and changing the pointers of overridden methods to point to the new implementation.
     - When instance creates, the vpointer of that instance will be set to the right vtable of the instance's class.
+- For example, here are the memory map for objects `a` and `act_a`:
+```diff
+    !Objects' memory map in memory
+
+    A Instance (act_a):             A vtable:
+        ┌─────────────┐        ┌──>┌────────────┐                    ┌─────────────┐
+        │ vptr        │────────┘   │ ptr. to m1 │───────────────────>│impl. of A.m1│
+        ├─────────────┤            └────────────┘                    └─────────────┘
+        │    x = 0    │
+        ├─────────────┤
+        │    z = 0    │
+        └─────────────┘
+    B Instance (a):                 B vtable: 
+        ┌─────────────┐        ┌──>┌────────────┐                    ┌─────────────┐
+        │ vptr        │────────┘   │ ptr. to m1 │───────────────────>│impl. of B.m1│
+        ├─────────────┤            └────────────┘                    └─────────────┘
+        │    x = 1    │
+        ├─────────────┤
+        │    z = 0    │
+        ├═════════════┤
+        │    y = 2    │
+        └─────────────┘
+```
 
 **Example**
 
@@ -182,6 +228,34 @@ class Main {
 ```
 1. What are the static and dynamic types of `a1`, `a2` and `a3`?
 2. What methods are the call `a2.m2()`, `a1.m3()` and `a3.m2()` dispatched to?
+**Solution**
+Firstly, we draw the mempry map for each object:
+```
+                                                                        +-------------+
+        B instance                B's vtable                        ┌──>|impl. of B.m2|
+a1 ───┌>+----------+            ┌>+-------------+                   |   +-------------+ 
+a3 ───┘ | vptr ----|------------┘ |ptr. to m2 --|───────────────────┘   +-------------+
+|       |==========|              |ptr. to m3 --|───────────────┌──────>|impl. of A.m3|                  
+|       +----------+              |ptr. to m4 --|────────┐      |       +-------------+
+|                                 +-------------+        |      | 
+|                                                        └──────|───┌──>+-------------+
+|                                                               |   |   |impl. of A.m4|
+|                                                               |   |   +-------------+
+|                                                               |   |
+|                                                               |   |                        +-------------+
+├───────────────────────────────────────────────────────────────|───|───────────────────────>|impl. of A.m1| 
+|       A instance                A's vtable                    |   |                        +-------------+
+a2 ---> +----------+            ┌>+-------------+               |   |    +-------------+   
+        | vptr ----|------------┘ |ptr. to m2 --|───────────────|───|───>|impl. of A.m2|   
+        |==========|              |ptr. to m3 --|───────────────┘   |    +-------------+        
+        +----------+              |ptr. to m4 --|───────────────────┘
+                                  +-------------+
+```
+1. `a1`: Static type: `A`. Dynamic Type: `B`; `a2`: Static type: `A`. Dynamic Type: `A`; `a3`: Static type: `A`. Dynamic Type: `B`.
+- To determine dynamic type, we check the actual instance pointed for each object.
+- To determine static type, we check the type for each object in the code.
+2. call for `a2.m2()` dispatched to `A.m2`; `a1.m3()` dispatched to `A.m3`; `a3.m2()` dispatched to `B.m2`.
+- To determine dispatch, we check each object's instance, and look up the virtual table.
 
 ## Prototype OOP
 - Def. Object is not related to class. It could be created as an empty object or cloned from an existing object (prototype object).
