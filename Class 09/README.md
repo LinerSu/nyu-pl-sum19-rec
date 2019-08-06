@@ -9,13 +9,13 @@
 (*b*) fun fi f = f true + f 0
 (*c*) fun l NONE = false
           | l (SOME x) = x + 1
-(*d*)
+(*d*) 
 ```
 
 <details><summary>Solution</summary>
     <p>
 
 ```
-([1-9][0-9]*|0)\.[0-9]+
+(a) In else branch, the variable x has bool type but operand + expects x be an int type.
 ```
    </p></details>
