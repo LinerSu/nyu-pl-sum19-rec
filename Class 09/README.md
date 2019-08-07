@@ -29,25 +29,30 @@
 
 ### Templates in C++
 - Def. a feature of the C++ programming language that allows functions and classes to operate with generic types.
+- Declaring format:
+    ```c++
+    template <class identifier> function_declaration;
+    template <typename identifier> function_declaration;
+    ```
 - For example:
-```c++
-template<typename T>
-void c_swap(T & a, T & b) //"&" passes parameters by reference
-{
-   T temp = b;
-   b = a;
-   a = temp;
-}
-
-int c = 10, d = 20;
-string hello = "World!", world = "Hello, ";
-c_swap(c, d);
-c_swap( world, hello );
-```
+    ```c++
+    template<typename T>
+    void c_swap(T & a, T & b) //"&" passes parameters by reference
+    {
+       T temp = b;
+       b = a;
+       a = temp;
+    }
+    
+    int c = 10, d = 20;
+    string hello = "World!", world = "Hello, ";
+    c_swap(c, d);
+    c_swap( world, hello );
+    ```
 - How does templates work?
-    - The compiler generates the code for the specific types given in the template class instantiation.
+    - The compiler generates the code for the specific types given in the template function call or class instantiation.
 <p align="center">
-<img src="img/template.jpg" height="80%" width="80%">
+<img src="img/template.png" height="80%" width="80%">
 </p>
     
 ### Java generics
