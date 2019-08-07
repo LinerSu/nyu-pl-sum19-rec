@@ -17,5 +17,61 @@
 
 ```
 (a) In else branch, the variable x has bool type but operand + expects x be an int type.
+(b) The function `f true` forces `f` to be a type of the form `bool -> 'a`, but `f 0` strengths it to be `int -> 'b` for some `'b`.
+(c) The return type of the function l are not the same. The first case returns a boolean, but second one returns an integer.
+(d)
 ```
    </p></details>
+
+## Generic Programming
+- Def. a model that allows algorithms pass data type as a parameter when needed for specific types provided.
+    - Benefit: writing function / class that will work for many types of data.
+
+### Templates in C++
+- Def. a feature of the C++ programming language that allows functions and classes to operate with generic types.
+- For example:
+```c++
+template<typename T>
+void c_swap(T & a, T & b) //"&" passes parameters by reference
+{
+   T temp = b;
+   b = a;
+   a = temp;
+}
+
+int c = 10, d = 20;
+string hello = "World!", world = "Hello, ";
+c_swap(c, d);
+c_swap( world, hello );
+```
+- How does templates work?
+    - The compiler generates the code for the specific types given in the template class instantiation.
+<p align="center">
+<img src="img/template.jpg" height="80%" width="80%">
+</p>
+    
+### Java generics
+
+### Variance (Optional)
+```java
+class A {} 
+class B extends A {} 
+  
+class Base 
+{ 
+    B fun() 
+    { 
+        System.out.println("Base fun()"); 
+        return new B(); 
+    } 
+} 
+
+class Derived extends Base 
+{ 
+    A fun() 
+    { 
+        System.out.println("Derived fun()"); 
+        return new A(); 
+    } 
+} 
+```
