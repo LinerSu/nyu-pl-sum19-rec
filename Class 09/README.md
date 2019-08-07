@@ -9,7 +9,10 @@
 (*b*) fun fi f = f true + f 0
 (*c*) fun l NONE = false
           | l (SOME x) = x + 1
-(*d*) 
+(*d*) fun is_large x =
+          if x > 37 then true
+          else false
+(*e*) fun 
 ```
 
 <details><summary>Solution</summary>
@@ -23,16 +26,24 @@
 ```
    </p></details>
 
+2. **[Hard]** 
+
 ## Generic Programming
 - Def. a model that allows algorithms pass data type as a parameter when needed for specific types provided.
     - Benefit: writing function / class that will work for many types of data.
-
+- Compilation Process
+    - The type parameter annotations in generic classes and methods are only needed at compile time when the program is type checked.
+    - Once the compiler has determined that all generic classes are type safe, 
 ### Templates in C++
 - Def. a feature of the C++ programming language that allows functions and classes to operate with generic types.
 - Declaring format:
     ```c++
-    template <class identifier> function_declaration;
-    template <typename identifier> function_declaration;
+    // Function Templates 
+    template <class identifier> function_declaration
+    template <typename identifier> function_declaration
+    // Class Templates
+    template <class identifier> class_declaration
+    template <typename identifier> class_declaration
     ```
 - For example:
     ```c++
@@ -51,11 +62,14 @@
     ```
 - How does templates work?
     - The compiler generates the code for the specific types given in the template function call or class instantiation.
-<p align="center">
-<img src="img/template.png" height="80%" width="80%">
-</p>
-    
+    <p align="center">
+    <img src="img/template.png" height="80%" width="80%">
+    </p>
+
 ### Java generics
+- Type erasure
+    - Def. refers to the load-time process by which explicit type annotations are removed from a program, before it is executed at run-time.
+    - Once type for generic classes is correct, erase the type annotations by using type `Object`.
 
 ### Variance (Optional)
 ```java
