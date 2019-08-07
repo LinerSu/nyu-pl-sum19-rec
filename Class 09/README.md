@@ -12,7 +12,14 @@
 (*d*) fun is_large x =
           if x > 37 then true
           else false
-(*e*) fun 
+(*e HARD*) 
+datatype ('a,'b) sum = 
+    L of 'a 
+  | R of 'b 
+fun j (L x) = (L(x), L(x))
+  | j (R x) = let val (a,b) = x in
+  (R(a), R(b))
+  end
 ```
 
 <details><summary>Solution</summary>
@@ -22,7 +29,8 @@
 (a) In else branch, the variable x has bool type but operand + expects x be an int type.
 (b) The function `f true` forces `f` to be a type of the form `bool -> 'a`, but `f 0` strengths it to be `int -> 'b` for some `'b`.
 (c) The return type of the function l are not the same. The first case returns a boolean, but second one returns an integer.
-(d)
+(d) val is_large = fn : int -> bool
+(e) val j = fn : ('a,'b * 'c) sum -> ('a,'b) sum * ('a,'c) sum
 ```
    </p></details>
 
