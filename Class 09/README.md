@@ -116,7 +116,7 @@ fun multNat x y =
   - Ownerships types
     - To move all the reasoning involved in determining which references are alive at what time from run-time to compile-time
 ### Exercise
-1. Consider the following FROM heap:
+1. **[Copying]** Consider the following FROM heap:
 <p align="center">
 <img src="img/heap2.png" height="80%" width="80%">
 </p>
@@ -143,13 +143,59 @@ q=p
 return 0
 ```
 ## Prolog
-
+- Terminology
+  - Functors, Atoms, Variables, Rules
+- Logical Rule
+  - Conjunctions
+    - `boy(X) :- young(X), male(X).`
+    - Note: Prolog will firstly find a fact to satisfy subgoal `young`, and then use that variable binding to find another fact for subgoal `male`.
+   - Disjunctions
+    - `happy1(X) :- rich(X); famous(X).`
+    - Note: Prolog will firstly match all cases to satisfy subgoal `rich`, and then backtracks to next subgoal `famous`.
+- Unification
+  - Algorithm?
+  - Note: `X = f(X)` leads unification to fail.
+- Backtracking
+  - Using `trace` mode in Prolog helps you understand the execution order.
 - Negation
   ```prolog
   pass(math).
   pass(physics).
-  fail(X):- not(pass(X)).
+  fail(X):- not(pass(X)). // Negation as Failure
   ```
+  - Note: you have to consider the universe of `pass` facts is complete. For instance, add some facts for `fail`.
+
+## OOP
+- Prototype OOP
+  - Def. Object is not related to class. It could be created as an empty object or cloned from an existing object (prototype object).
+  - Objects inherit directly from other objects through a prototype property.
+    - `__proto__` in JavaScript.
+  - Cloning (inheritance) is performed by behaviour reuse.
+    - A process of reusing existing objects via delegation that serve as prototypes.
+    - Delegation: refers to evaluating a member (property or method) of one object in the context of another original object.
+  - For example:
+  ```js
+  var foo = {one: 1, two: 2};
+  var bar = Object.create( foo ); // bar = clone(foo)
+  bar.one; // return 1, bar refers foo.a
+  bar.three = 3; // add new field
+  bar.two = "this is two"; // add new field two, and shadow proto object's two
+  bar;
+  /*
+  three: 3
+  two: "this is two"
+  __proto__:
+      name: "foo"
+      one: 1
+      two: 2
+  */
+  ```
+    - The memory map for objects foo and bar are:
+- Class OOP
+  - Class? Encapsulation? Inheritance? Dynamic dispatch?
+  - Object's allocation
+    - In Java, all objects are dynamically allocated on Heap.
+    - In C++, objects can be allocated memory **either** on Stack or on Heap.
 
 ## Generic Programming
 - Def. a model that allows algorithms pass data type as a parameter when needed for specific types provided.
@@ -194,7 +240,7 @@ return 0
 ### Java generics
 - Type erasure
     - Def. refers to the compile-time process by which explicit type annotations are removed from a program.
-    - Once type for generic classes is correct, the compiler erases the type annotations by using type `Object`.
+    - Once type for generic classes is correct, the compiler erases the type annotations by using `Object`.
 - For example:
   ```java
   class Test<T> 
@@ -204,7 +250,7 @@ return 0
     public T getObject()  { return this.obj; } 
   }
   ```
-- After type erased, the code will change to:
+- After type erased, the code will be changed to:
   ```java
   class Test
   { 
@@ -213,6 +259,7 @@ return 0
     public Object getObject()  { return this.obj; } 
   }
   ```
+- [Java generics tutorial](https://docs.oracle.com/javase/tutorial/java/generics/index.html)
 
 ### Variance (Optional)
 
@@ -243,3 +290,5 @@ class Derived extends Base
     } 
 } 
 ```
+## Note
+1. Good luck for your exam.
