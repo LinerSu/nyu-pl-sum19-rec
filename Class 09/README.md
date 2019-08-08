@@ -313,21 +313,28 @@ Queue<Bird> bird = new Queue<Sparrow>() // Allow?
 
   class Base 
   { 
-      B fun() 
+      A fun() 
       { 
           System.out.println("Base fun()"); 
-          return new B(); 
+          return new A(); 
       } 
   } 
 
   class Derived extends Base 
   { 
-      A fun() 
+      B fun() 
       { 
           System.out.println("Derived fun()"); 
-          return new A(); 
+          return new B(); 
       } 
   } 
+
+  public class Main {
+    public static void main(String[] args) {
+      Base b = new Derived();
+      b.fun();
+    }
+  }
   ```
   - Q: What if we swap the return type and object for method `f` inside class `Base` and `Derived`?
     - Ans: Java using a rule called covariant method return type. In general, we have to protect our code to ensure type safety. This is the [mechanism](https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)). 
