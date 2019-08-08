@@ -118,7 +118,7 @@ fun multNat x y =
 ### Exercise
 1. **[Copying]** Consider the following FROM heap:
 <p align="center">
-<img src="img/heap2.png" height="80%" width="80%">
+<img src="img/heap2.png" height="50%" width="50%">
 </p>
 
 Assume that the roots point to objects 4 and 6. Draw the FROM and TO space after the call to traverse for each of the roots, assuming they are processed in the order listed above.
