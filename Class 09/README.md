@@ -1,7 +1,26 @@
 # Final Exam Preparation
 
 ## Functional Programming - ML
-- Function recap:
+- Basic:
+  - List
+  - Records & tuples
+    ```sml
+    (*recod*){ a = "123" , y = 2 }: {a:string, y:int}
+    (*tuple*)(1,2,3) : int * int * int
+    ```
+  - ML signature & structure
+- Feature:
+  - Pattern matching
+    - What it is? What rules could we use in sml? 
+  - Type inference
+    - How does the compiler infer the type of a function?
+  - Parametric polymorphism
+    - What is the type variable? `'a`?
+  - Datatype
+    - What it is? How to define it? How to use it?
+    - Parameterized datatype?
+    - Optional type?
+- Functions recap:
   - `map`: 
     - applies a function `f` to each element in a list `[a1; ...; an]`, and builds the list [f a1; ...; f an] with the results returned by f.
     - `val map = fn : ('a -> 'b) -> 'a list -> 'b list`
@@ -23,7 +42,8 @@
 (*e HARD*) 
 datatype ('a,'b) sum = 
     L of 'a 
-  | R of 'b 
+  | R of 'b
+
 fun j (L x) = (L(x), L(x))
   | j (R x) = let val (a,b) = x in
   (R(a), R(b))
@@ -81,7 +101,7 @@ fun multNat x y =
     - Benefit: writing function / class that will work for many types of data.
 - Compilation Process
     - The type parameter annotations in generic classes and methods are only needed at compile time when the program is type checked.
-    - Once the compiler has determined that all generic classes are type safe, 
+    - Once the compiler has determined that all generic classes are type safe, how to generate the code for generics?
 ### Templates in C++
 - Def. a feature of the C++ programming language that allows functions and classes to operate with generic types.
 - Declaring format:
@@ -116,10 +136,16 @@ fun multNat x y =
 
 ### Java generics
 - Type erasure
-    - Def. refers to the load-time process by which explicit type annotations are removed from a program, before it is executed at run-time.
+    - Def. refers to the compile-time process by which explicit type annotations are removed from a program.
     - Once type for generic classes is correct, erase the type annotations by using type `Object`.
 
 ### Variance (Optional)
+
+- **Q:** suppose we have the types Sparrow, and Bird, where Sparrow is subtypes of Bird. If we have a queue instance of type Queue[Sparrow], can we also use it in situations where we need an instance of type Queue[Bird]?
+```java
+Queue[Sparrow] = 
+```
+
 ```java
 class A {} 
 class B extends A {} 
