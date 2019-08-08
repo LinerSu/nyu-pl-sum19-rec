@@ -296,7 +296,7 @@ Q: In above statements, Which method's call uses vtable?
 ```java
 Queue<Bird> bird = new Queue<Sparrow>() // Allow?
 ```
-  - If we allow this, what happens for :
+  - If we allow this, what happens for this case:
   ```java
   // Assume we can use instance of Queue<Sparrow> in a context for Queue<Bird>.
   Eagle eagle = new Eagle();
