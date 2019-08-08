@@ -96,6 +96,61 @@ fun multNat x y =
 ```
    </p></details>
 
+## Memory Allocation & Garbage Collection
+- Types of Allocation
+  - static? stack? heap?
+- Allocation methods
+  - First fit, Best fit, Worst fit
+- Garbage Collection
+  - Mark and sweep
+    - Each object has an extra bit called the mark bit
+    - Mark phase --- the collector traverses the heap and sets the mark bit of each live object encountered
+    - Sweep phase --- each object whose mark bit is not set goes on the free list
+  - Copying
+  - Reference counting
+    - Set reference count to 1 when newly object initiated
+    - Increment count when copy the pointer to the object
+    - Decrement count when a point to the object goes out of scope or stops pointing to the object
+    - When count = 0, deallocate this object
+    - Real Implementation: Smart Pointer.
+  - Ownerships types
+    - To move all the reasoning involved in determining which references are alive at what time from run-time to compile-time
+### Exercise
+1. Consider the following FROM heap:
+<p align="center">
+<img src="img/heap2.png" height="80%" width="80%">
+</p>
+
+Assume that the roots point to objects 4 and 6. Draw the FROM and TO space after the call to traverse for each of the roots, assuming they are processed in the order listed above.
+
+2. Consider the following C++ code:
+```c++
+#include <iostream>
+#include "ptr.h"
+
+using namespace std;
+int main(){
+  Ptr<int> p = new int(5);
+  Ptr<int> q;
+  q = p;
+  cout<<*q<<endl;
+  return 0;
+}
+```
+Draw diagrams that illustrate the memory state of the program (including the stack and heap contents) right before each of the following statements in the program is executed:
+```
+q=p
+return 0
+```
+## Prolog
+
+- Negation
+  ```prolog
+  pass(math).
+  pass(physics).
+  fail(X):- not(pass(X)).
+  ```
+
 ## Generic Programming
 - Def. a model that allows algorithms pass data type as a parameter when needed for specific types provided.
     - Benefit: writing function / class that will work for many types of data.
@@ -113,6 +168,7 @@ fun multNat x y =
     template <class identifier> class_declaration
     template <typename identifier> class_declaration
     ```
+- There is no much difference between `typename` and `class`. You can use them interchangeably. Here is the [difference](https://stackoverflow.com/questions/2023977/difference-of-keywords-typename-and-class-in-templates).
 - For example:
     ```c++
     template<typename T>
@@ -133,11 +189,30 @@ fun multNat x y =
     <p align="center">
     <img src="img/template.png" height="80%" width="80%">
     </p>
+- [Template tutorial](http://www.cplusplus.com/doc/oldtutorial/templates/)
 
 ### Java generics
 - Type erasure
     - Def. refers to the compile-time process by which explicit type annotations are removed from a program.
-    - Once type for generic classes is correct, erase the type annotations by using type `Object`.
+    - Once type for generic classes is correct, the compiler erases the type annotations by using type `Object`.
+- For example:
+  ```java
+  class Test<T> 
+  { 
+    T obj; 
+    Test(T obj) {  this.obj = obj;  }
+    public T getObject()  { return this.obj; } 
+  }
+  ```
+- After type erased, the code will change to:
+  ```java
+  class Test
+  { 
+    Object obj; 
+    Test(Object obj) {  this.obj = obj;  }
+    public Object getObject()  { return this.obj; } 
+  }
+  ```
 
 ### Variance (Optional)
 
