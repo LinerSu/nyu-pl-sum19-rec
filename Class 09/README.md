@@ -179,11 +179,11 @@ return 0
   var bar = Object.create( foo ); // bar = clone(foo)
   bar.one; // return 1, bar refers foo.a
   bar.three = 3; // add new field
-  bar.two = "this is two"; // add new field two, and shadow proto object's two
+  bar.two = "two"; // add new field two, and shadow proto object's two
   bar;
   /*
   three: 3
-  two: "this is two"
+  two: "two"
   __proto__:
       name: "foo"
       one: 1
@@ -196,6 +196,35 @@ return 0
   - Object's allocation
     - In Java, all objects are dynamically allocated on Heap.
     - In C++, objects can be allocated memory **either** on Stack or on Heap.
+### Exercise
+1. Consider the following c++ code:
+```c++
+#include <iostream>
+
+using namespace std;
+class CLASSA {
+public:
+    virtual void function_f () {}
+    void function_g() {}
+};
+
+int main()
+{
+    CLASSA local_a; // local
+    local_a.function_f();
+    local_a.function_g();
+    CLASSA *dyn_a = new CLASSA(); // dynamic
+    dyn_a->function_f();
+    dyn_a->function_g();
+    CLASSA *ptr_a = &local_a;
+    ptr_a->function_f();
+    ptr_a->function_g();
+    return 0;
+}
+```
+Q: Draw the vtable for class `CLASSA`.
+
+Q: In above method calls, Which method call uses vtable?
 
 ## Generic Programming
 - Def. a model that allows algorithms pass data type as a parameter when needed for specific types provided.
