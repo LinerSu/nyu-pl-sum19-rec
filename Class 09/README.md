@@ -224,7 +224,7 @@ int main()
 ```
 Q: Draw the vtable for class `CLASSA`.
 
-Q: In above method calls, Which method call uses vtable?
+Q: In above statements, Which method's call uses vtable?
 
 ## Generic Programming
 - Def. a model that allows algorithms pass data type as a parameter when needed for specific types provided.
@@ -292,32 +292,44 @@ Q: In above method calls, Which method call uses vtable?
 
 ### Variance (Optional)
 
-- **Q:** suppose we have the types Sparrow, and Bird, where Sparrow is subtypes of Bird. If we have a queue instance of type Queue[Sparrow], can we also use it in situations where we need an instance of type Queue[Bird]?
+- **Q:** suppose we have the types `Sparrow`, `Eagle` and `Bird`, where `Sparrow` and `Eagle` are subtypes of `Bird`. If we have a queue instance of type `Queue<Sparrow>`, can we also use it in situations where we need an instance of type `Queue<Bird>`?
 ```java
-Queue[Sparrow] = 
+Queue<Bird> bird = new Queue<Sparrow>() // Allow?
 ```
+  - If we allow this, what happens for :
+  ```java
+  // Assume we can use instance of Queue<Sparrow> in a context for Queue<Bird>.
+  Eagle eagle = new Eagle();
+  Queue<Sparrow> sparrow = new Queue<Sparrow>();
+  Queue<Bird> bird = sparrow; // Ok, assign it by reference; think about 
+  bird.add(eagle); // Ok, eagle is a bird, add it.
+  sparrow.peek(). // oops, you got an eagle
+  ```
+  - Let's consider another example:
+  ```java
+  class A {} 
+  class B extends A {} 
 
-```java
-class A {} 
-class B extends A {} 
-  
-class Base 
-{ 
-    B fun() 
-    { 
-        System.out.println("Base fun()"); 
-        return new B(); 
-    } 
-} 
+  class Base 
+  { 
+      B fun() 
+      { 
+          System.out.println("Base fun()"); 
+          return new B(); 
+      } 
+  } 
 
-class Derived extends Base 
-{ 
-    A fun() 
-    { 
-        System.out.println("Derived fun()"); 
-        return new A(); 
-    } 
-} 
-```
+  class Derived extends Base 
+  { 
+      A fun() 
+      { 
+          System.out.println("Derived fun()"); 
+          return new A(); 
+      } 
+  } 
+  ```
+  - Q: What if we swap the return type of each method `f`?
+    - Ans: Define a [mechanism](https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)) for this situation. 
+
 ## Note
 1. Good luck for your exam.
