@@ -1,11 +1,19 @@
 # Final Exam Preparation
 
 ## Functional Programming - ML
+- Function recap:
+  - `map`: 
+    - applies a function `f` to each element in a list `[a1; ...; an]`, and builds the list [f a1; ...; f an] with the results returned by f.
+    - `val map = fn : ('a -> 'b) -> 'a list -> 'b list`
+  - `foldl` :
+    - `val foldl = fn : ('a * 'b -> 'b) -> 'b -> 'a list -> 'b`
+  - `foldr` :
+    - `val foldr = fn : ('a * 'b -> 'b) -> 'b -> 'a list -> 'b`
 
 ### Exercise
-1. For each of the following functions, infer whether they are well-typed. If yes, provide the type of the function. Otherwise, explain the type error.
+1. **[Type Inference]** For each of the following functions, infer whether they are well-typed. If yes, provide the type of the function. Otherwise, explain the type error.
 ```sml
-(*a*) fun fg x = if x then x andalso x else x + 1
+(*a*) fun fg x = if x then x andalso(*&&*) x else x + 1
 (*b*) fun fi f = f true + f 0
 (*c*) fun l NONE = false
           | l (SOME x) = x + 1
@@ -34,7 +42,39 @@ fun j (L x) = (L(x), L(x))
 ```
    </p></details>
 
-2. **[Hard]** 
+2. **[Type Inhabitation]** Assume we are given the following algebraic data type and helper function:
+```sml
+datatype nat = Zero | Succ of nat
+
+fun toInt n = (*fn: nat -> int*)
+   case n of
+    Zero => 0
+   | (Succ n') => (toInt n') + 1
+
+val nat_3 = Succ(Succ(Succ(Zero))); (*nat representation of 3*)
+val nat_2 = Succ(Succ(Zero));
+```
+**Q:** Implement addition `plusNat` and multiplication `multNat` for `nat` datatype.
+```sml
+- toInt(plusNat nat_2 nat_3);;
+val it = 5 : int
+- toInt(multNat nat_2 nat_3);;
+val it = 6 : int
+```
+<details><summary>Solution</summary>
+    <p>
+
+```sml
+fun plusNat x y =
+   case x of
+    Zero => y
+   | (Succ x') => Succ (plusNat x' y)
+fun multNat x y =
+   case x of
+   Zero => Zero
+   | (Succ x') => plusNat y (multNat x' y)
+```
+   </p></details>
 
 ## Generic Programming
 - Def. a model that allows algorithms pass data type as a parameter when needed for specific types provided.
