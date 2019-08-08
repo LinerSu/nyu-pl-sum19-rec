@@ -138,8 +138,8 @@ int main(){
 }
 ```
 Draw diagrams that illustrate the memory state of the program (including the stack and heap contents) right before each of the following statements in the program is executed:
-```
-q=p
+```c++
+q = p
 return 0
 ```
 ## Prolog
