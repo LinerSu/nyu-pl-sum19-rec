@@ -300,11 +300,12 @@ Queue<Bird> bird = new Queue<Sparrow>() // Allow?
   ```java
   // Assume we can use instance of Queue<Sparrow> in a context for Queue<Bird>.
   Eagle eagle = new Eagle();
-  Queue<Sparrow> sparrow = new Queue<Sparrow>();
-  Queue<Bird> bird = sparrow; // Ok, assign it by reference; think about 
-  bird.add(eagle); // Ok, eagle is a bird, add it.
-  sparrow.peek(). // oops, you got an eagle
+  Queue<Sparrow> sparrow_queue = new LinkedList<Sparrow>();
+  Queue<Bird> bird_queue = sparrow_queue; // Ok, assign it by reference. 
+  bird_queue.add(eagle); // Ok, eagle is a bird, add it.
+  Sparrow sparrow = sparrow.peek(). // oops, you got an eagle
   ```
+- Def. variance refers to how subtyping between more complex types relates to subtyping between their components.
   - Let's consider another example:
   ```java
   class A {} 
