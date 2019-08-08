@@ -149,7 +149,7 @@ return 0
   - Conjunctions
     - `boy(X) :- young(X), male(X).`
     - Note: Prolog will firstly find a fact to satisfy subgoal `young`, and then use that variable binding to find another fact for subgoal `male`.
-   - Disjunctions
+  - Disjunctions
     - `happy1(X) :- rich(X); famous(X).`
     - Note: Prolog will firstly match all cases to satisfy subgoal `rich`, and then backtracks to next subgoal `famous`.
 - Unification
