@@ -328,8 +328,8 @@ Queue<Bird> bird = new Queue<Sparrow>() // Allow?
       } 
   } 
   ```
-  - Q: What if we swap the return type of each method `f`?
-    - Ans: Define a [mechanism](https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)) for this situation. 
+  - Q: What if we swap the return type and object for method `f` inside class `Base` and `Derived`?
+    - Ans: Java using a rule called covariant method return type. In general, we have to protect our code to ensure type safety. This is the [mechanism](https://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)). 
 
 ## Note
 1. Good luck for your exam.
