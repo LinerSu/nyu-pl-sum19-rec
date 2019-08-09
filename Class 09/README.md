@@ -144,7 +144,7 @@ return 0
 
 I only give one diagram after executing `q = p`. The ultimate memory map after `return 0` will be an empty stack for `main` and empty heap.
 <p align="center">
-<img src="img/smp.png" height="50%" width="50%">
+<img src="img/smp.png" height="60%" width="60%">
 </p>
 
 ## Prolog
@@ -197,7 +197,7 @@ I only give one diagram after executing `q = p`. The ultimate memory map after `
   ```
     - The memory map for objects `foo` and `bar` are:
     <p align="center">
-      <img src="img/proto.png" height="50%" width="50%">
+      <img src="img/proto.png" height="70%" width="70%">
     </p>
 - Class OOP
   - Class? Encapsulation? Inheritance? Dynamic dispatch?
