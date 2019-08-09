@@ -50,9 +50,7 @@ fun j (L x) = (L(x), L(x))
   end
 ```
 
-<details><summary>Solution</summary>
-    <p>
-
+**Solution**
 ```
 (a) In else branch, the variable x has bool type but operand + expects x be an int type.
 (b) The function `f true` forces `f` to be a type of the form `bool -> 'a`, but `f 0` strengths it to be `int -> 'b` for some `'b`.
@@ -60,7 +58,6 @@ fun j (L x) = (L(x), L(x))
 (d) val is_large = fn : int -> bool
 (e) val j = fn : ('a,'b * 'c) sum -> ('a,'b) sum * ('a,'c) sum
 ```
-   </p></details>
 
 2. **[Type Inhabitation]** Assume we are given the following algebraic data type and helper function:
 ```sml
@@ -81,9 +78,7 @@ val it = 5 : int
 - toInt(multNat nat_2 nat_3);;
 val it = 6 : int
 ```
-<details><summary>Solution</summary>
-    <p>
-
+**Solution**
 ```sml
 fun plusNat x y =
    case x of
@@ -94,7 +89,6 @@ fun multNat x y =
    Zero => Zero
    | (Succ x') => plusNat y (multNat x' y)
 ```
-   </p></details>
 
 ## Memory Allocation & Garbage Collection
 - Types of Allocation
@@ -123,6 +117,10 @@ fun multNat x y =
 
 Assume that the roots point to objects 4 and 6. Draw the FROM and TO space after the call to traverse for each of the roots, assuming they are processed in the order listed above.
 
+**Solution**
+
+Follow the copying algorithm to draw two FROM-TO space.
+
 2. Consider the following C++ code:
 ```c++
 #include <iostream>
@@ -142,6 +140,13 @@ Draw diagrams that illustrate the memory state of the program (including the sta
 q = p
 return 0
 ```
+**Solution**
+
+I only give one diagram after executing `q = p`. The ultimate memory map after `return 0` will be an empty stack for `main` and empty heap.
+<p align="center">
+<img src="img/smp.png" height="50%" width="50%">
+</p>
+
 ## Prolog
 - Terminology
   - Functors, Atoms, Variables, Rules
@@ -180,7 +185,7 @@ return 0
   bar.one; // return 1, bar refers foo.a
   bar.three = 3; // add new field
   bar.two = "two"; // add new field two, and shadow proto object's two
-  bar;
+  bar; // memory map at this line
   /*
   three: 3
   two: "two"
@@ -190,7 +195,10 @@ return 0
       two: 2
   */
   ```
-    - The memory map for objects foo and bar are:
+    - The memory map for objects `foo` and `bar` are:
+    <p align="center">
+      <img src="img/proto.png" height="50%" width="50%">
+    </p>
 - Class OOP
   - Class? Encapsulation? Inheritance? Dynamic dispatch?
   - Object's allocation
@@ -211,27 +219,50 @@ public:
 int main()
 {
     CLASSA local_a; // local
-    local_a.function_f();
-    local_a.function_g();
+    local_a.function_f(); // callq	__ZN6CLASSA10function_fEv, normal method call
+    local_a.function_g(); // callq	__ZN6CLASSA10function_gEv, normal method call
     CLASSA *dyn_a = new CLASSA(); // dynamic
-    dyn_a->function_f();
-    dyn_a->function_g();
+    dyn_a->function_f(); // callq	*(%rdx), use vtable
+    dyn_a->function_g(); // callq	__ZN6CLASSA10function_gEv, normal method call
     CLASSA *ptr_a = &local_a;
-    ptr_a->function_f();
-    ptr_a->function_g();
+    ptr_a->function_f(); // callq	*(%rdx), use vtable
+    ptr_a->function_g(); // callq	__ZN6CLASSA10function_gEv, normal method call
     return 0;
 }
 ```
 Q: Draw the vtable for class `CLASSA`.
+```
+CLASSA class vTable
+function_f() CLASSA version
 
+vtable by assembly
+__ZTV6CLASSA: # Vtable for CLASSA
+	.quad	0
+	.quad	__ZTI6CLASSA
+	.quad	__ZN6CLASSA10function_fEv
+```
 Q: In above statements, Which method's call uses vtable?
+```
+dyn_a->function_f();
+ptr_a->function_f();
+```
+**Reason**
+
+In c++, you can use object instance `local_a` or object pointer `dyn_a` or `ptr_a` to access an class object. But there are some differences for methods' call. 
+
+During compliation, for each method call of this object will be translated as a normal function call. Thus, `local_a.function_f()` and `local_a.function_g()` will not use the vtable even if `function_f` is a virtual method.
+For object pointer, the method call will depend on virtual or non-virtual method. For virtual method call by an object pointer, it will check vtable. For non-virtual one, treat it as a function call.
+
+Therefore, to distinguish the method call for vtable, you just check that either the call is by object pointer (`->`) or by object itself (`.`).
+
+You can also check the assembly code `locobj.s` to see the differences. I already gave the comments for each method call.
 
 ## Generic Programming
 - Def. a model that allows algorithms pass data type as a parameter when needed for specific types provided.
     - Benefit: writing function / class that will work for many types of data.
 - Compilation Process
-    - The type parameter annotations in generic classes and methods are only needed at compile time when the program is type checked.
-    - Once the compiler has determined that all generic classes are type safe, how to generate the code for generics?
+    - Usage for type parameter: the type parameter annotations in generic classes and methods are only needed at compile time when the program is type checked.
+    - Once the compiler has determined that all generic classes are type safe, how to generate the code for generics? Do we need the type parameter?
 ### Templates in C++
 - Def. a feature of the C++ programming language that allows functions and classes to operate with generic types.
 - Declaring format:
@@ -303,7 +334,7 @@ Queue<Bird> bird = new Queue<Sparrow>() // Allow?
   Queue<Sparrow> sparrow_queue = new LinkedList<Sparrow>();
   Queue<Bird> bird_queue = sparrow_queue; // Ok, assign it by reference. 
   bird_queue.add(eagle); // Ok, eagle is a bird, add it.
-  Sparrow sparrow = sparrow.peek(). // oops, you got an eagle
+  Sparrow sparrow = sparrow.peek(). // oops, you got an eagle. WRONG!!!!
   ```
 - Def. variance refers to how subtyping between more complex types relates to subtyping between their components.
   - Let's consider another example:
