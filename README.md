@@ -1,3 +1,3 @@
-# Summer 2019 --- Programming Language
+# Programming Language recitation repo
 
 This is the repository of recitation notes.
